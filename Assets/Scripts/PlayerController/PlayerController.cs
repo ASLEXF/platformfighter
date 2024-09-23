@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = playerObj.GetComponent<Animator>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
@@ -63,7 +64,16 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Input System
+
+    PlayerInput playerInput;
+    InputAction shield;
+
     Vector2 _rawInputMovement;
+
+    void initialInputAction()
+    {
+        shield = playerInput.actions.FindActionMap("Keyboard").FindAction("Shield");
+    }
 
     public void OnMovement(InputAction.CallbackContext value)
     {
@@ -71,6 +81,14 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnAttack(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            animator.SetTrigger("Attack");
+        }
+    }
+
+    public void OnShield(InputAction.CallbackContext value)
     {
         if (value.started)
         {
