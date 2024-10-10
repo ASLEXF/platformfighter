@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
+    Rigidbody rb;
     Animator animator;
+    PlayerAttack playerAttack;
+    PlayerInteract playerInteract;
 
     [SerializeField] float walkSpeed = 0.9f;
     [SerializeField] float runSpeed = 5f;
@@ -14,7 +16,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float acceleration = 4f;
     [SerializeField] float currentSpeed;
 
-    private Rigidbody rb;
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameObject connetPoint;
 
@@ -31,7 +32,9 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = playerObj.GetComponent<Animator>();
+        playerAttack = playerObj.GetComponent<PlayerAttack>();
         playerInput = GetComponent<PlayerInput>();
+        playerInteract = playerObj.transform.GetChild(8).GetComponent<PlayerInteract>();
     }
 
     private void Start()
@@ -129,6 +132,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnThrow(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            playerAttack.ThrowWeapon();
+        }
+    }
+
     public void OnShield(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -137,6 +148,14 @@ public class PlayerController : MonoBehaviour
             
         }
         animator.SetBool("IsBlocking", context.performed);
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            playerInteract.Interact();
+        }
     }
 
     //private void OnShieldCanceled(InputAction.CallbackContext context)

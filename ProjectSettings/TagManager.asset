@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - Weapon
+  - DamageTrigger
+  - Item
+  - Platform
+  - Shield
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -12,10 +18,10 @@ TagManager:
   - Platform
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Shield
+  - Weapon
+  - Item
+  - Player
   - 
   - 
   - 

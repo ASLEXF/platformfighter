@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Orientation : MonoBehaviour
 {
-    [SerializeField] Vector3 orientationPoint;
+    [SerializeField] public Vector3 orientationPoint;
 
     private void Update()
     {

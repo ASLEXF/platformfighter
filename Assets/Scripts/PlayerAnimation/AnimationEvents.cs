@@ -6,6 +6,9 @@ public class AnimationEvents : MonoBehaviour
 {
     Animator animator;
 
+    [SerializeField] HandLSlot handlSlot;
+    [SerializeField] HandRSlot handRSlot;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -19,5 +22,44 @@ public class AnimationEvents : MonoBehaviour
     private void stopAttacking()
     {
         animator.SetBool("IsAttacking", false);
+    }
+
+    private void startWeaponOneStrike()
+    {
+        IWeapon weapon = handRSlot.GetCurrentIWeapon();
+
+        if (weapon != null)
+        {
+            weapon.StartOneStrike();
+        }
+    }
+
+    private void endWeaponOneStrike()
+    {
+        IWeapon weapon = handRSlot.GetCurrentIWeapon();
+
+        if (weapon != null)
+        {
+            weapon.EndOneStrike();
+        }
+    }
+
+    private void throwWeapon()
+    {
+        GameObject weaponObj = handRSlot.GetCurrentWeaponObj();
+        //weaponObj.SetActive(false);
+
+        string path = $"Prefabs/{weaponObj.name}";
+        GameObject prefanObj = Resources.Load<GameObject>(path);
+        Vector3 position = gameObject.transform.position + gameObject.transform.forward * 1 + new Vector3(0, 1.5f, 0);
+        Quaternion rotation = Quaternion.Euler(5, gameObject.transform.rotation.eulerAngles.y + 90, 90);
+        GameObject projectile = Instantiate(prefanObj, position, rotation);
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        rb.velocity = gameObject.transform.forward * 20.0f;
+
+        DropItem dropItem = projectile.GetComponent<DropItem>();
+        dropItem.isThrown = true;
+
+        dropItem.collisionObjs.Add(gameObject);
     }
 }

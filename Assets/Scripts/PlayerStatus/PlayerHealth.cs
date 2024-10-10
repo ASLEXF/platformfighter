@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] int maxHealth = 3;
     [SerializeField] int currentHealth;
 
+    public bool isInvincible = false;
+
     private void Awake()
     {
         playerAttacked = transform.parent.GetChild(0).GetComponent<PlayerAttacked>();
@@ -27,7 +29,6 @@ public class PlayerHealth : MonoBehaviour
         if (resultHealth > 0)
         {
             currentHealth = resultHealth;
-            playerAttacked.GetAttacked();
         }
         else
         {
