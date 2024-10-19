@@ -1,24 +1,30 @@
+# nullable enable
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
+    Animator animator;
     GameObject charactorObj;
     [SerializeField] HandLSlot handLSlot;
     [SerializeField] HandRSlot handRSlot;
 
     [SerializeField] List<DropItem> dropItems;
-    [SerializeField] DropItem currentItem;
+    [SerializeField] DropItem? currentItem;
+
+    bool isDropItemsUpdated = true;
 
     private void Awake()
     {
+        animator = transform.parent.GetComponent<Animator>();
         charactorObj = transform.parent.gameObject;
     }
 
     private void Start()
     {
-        //Physics.IgnoreCollision()
+        GameEvents.Instance.OnItemDropped += UpdateDropItems;
     }
 
     private void Update()
@@ -35,7 +41,7 @@ public class PlayerInteract : MonoBehaviour
 
     }
 
-    DropItem findClosestItem()
+    DropItem? findClosestItem()
     {
         if (dropItems.Count == 0) return null;
         if (dropItems.Count == 1) return dropItems[0];
@@ -74,6 +80,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (currentItem != null)
         {
+            animator.SetTrigger("Interact");
             switch(currentItem.itemType)
             {
                 case ItemType.comsumable:
@@ -84,7 +91,7 @@ public class PlayerInteract : MonoBehaviour
                 {
                     if (charactorObj.name == "Knight")
                     {
-                        if(handRSlot.AddWeapon(currentItem.gameObject.name))
+                        if(handRSlot.AddWeapon(currentItem.itemName))
                         {
                             Destroy(currentItem.gameObject);
                             dropItems.Remove(currentItem);
@@ -97,7 +104,7 @@ public class PlayerInteract : MonoBehaviour
                 {
                     if (charactorObj.name == "Knight")
                     {
-                        if(handLSlot.AddItem(currentItem.gameObject.name))
+                        if(handLSlot.AddItem(currentItem.itemName))
                         {
                             Destroy(currentItem.gameObject);
                             dropItems.Remove(currentItem);
@@ -110,7 +117,7 @@ public class PlayerInteract : MonoBehaviour
                 {
                     if (charactorObj.name == "Barbarian")
                     {
-                        if (handRSlot.AddWeapon(currentItem.gameObject.name))
+                        if (handRSlot.AddWeapon(currentItem.itemName))
                         {
                             Destroy(currentItem.gameObject);
                             dropItems.Remove(currentItem);
@@ -123,7 +130,7 @@ public class PlayerInteract : MonoBehaviour
                 {
                     if (charactorObj.name == "Barbarian")
                     {
-                        if (handLSlot.AddItem(currentItem.gameObject.name))
+                        if (handLSlot.AddItem(currentItem.itemName))
                         {
                             Destroy(currentItem.gameObject);
                             dropItems.Remove(currentItem);
@@ -136,23 +143,50 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
+    void dropCurrentWeapon()
+    {
+
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log($"{collider.transform.root.gameObject.name}");
+        //Debug.Log($"{collider.transform.root.gameObject.name}");
         if (collider.gameObject.CompareTag("Item"))
         {
-            DropItem dropItem = collider.gameObject.GetComponent<DropItem>();
-            dropItems.Add(dropItem);
+            DropItem? dropItem = collider.gameObject.GetComponent<DropItem>();
+            if (!(dropItem?.isThrown ?? true))
+                dropItems.Add(dropItem!);
         }
+    }
+
+    private void OnTriggerStay(Collider collider)
+    {
+        // TODO: need test
+        // handle drop items that are thrown into interact range
+        if (isDropItemsUpdated) return;
+
+        if (collider.gameObject.CompareTag("Item"))
+        {
+            DropItem? dropItem = collider.gameObject.GetComponent<DropItem>();
+            if (!(dropItem?.isThrown ?? true) && !dropItems.Contains(dropItem))
+                dropItems.Add(dropItem!);
+        }
+
+        isDropItemsUpdated = true;
     }
 
     private void OnTriggerExit(Collider collider)
     {
         if (collider.gameObject.CompareTag("Item"))
         {
-            DropItem dropItem = collider.gameObject.GetComponent<DropItem>();
+            DropItem? dropItem = collider.gameObject.GetComponent<DropItem>();
             dropItem.SetOutLineOff();
             dropItems.Remove(dropItem);
         }
+    }
+
+    private void UpdateDropItems()
+    {
+        isDropItemsUpdated = false;
     }
 }

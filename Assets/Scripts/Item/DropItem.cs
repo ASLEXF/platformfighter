@@ -71,6 +71,7 @@ public class DropItem : MonoBehaviour
         {
             isThrown = false;
             collisionObjs.Clear();
+            GameEvents.Instance.ItemDropped();
             //Vector3 newDirection = (transform.right + transform.forward + transform.up).normalized;
             //rb.velocity = rb.velocity.magnitude * newDirection;
         }

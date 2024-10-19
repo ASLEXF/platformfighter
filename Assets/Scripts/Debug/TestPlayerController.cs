@@ -5,39 +5,53 @@ using UnityEngine.InputSystem;
 
 public class TestPlayerController : MonoBehaviour
 {
-    Rigidbody rb;
     Animator animator;
     PlayerAttack playerAttack;
-
-    [SerializeField] float walkSpeed = 0.9f;
-    [SerializeField] float runSpeed = 5f;
-    [SerializeField] float deceleration = 0.6f;
-    [SerializeField] float acceleration = 4f;
-    [SerializeField] float currentSpeed;
+    PlayerAttacked playerAttacked;
 
     [SerializeField] private GameObject playerObj;
+    [SerializeField] bool attack = false;
+    [SerializeField] bool block = false;
 
-    float time = Time.time;
+    float time;
+
+    bool isBlock = true;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         animator = playerObj.GetComponent<Animator>();
         playerAttack = playerObj.GetComponent<PlayerAttack>();
+        playerAttacked = playerObj.GetComponent<PlayerAttacked>();
     }
 
     private void Start()
     {
         playerObj.transform.position = transform.position;
         //initialInputAction();
+        time = Time.time;
+
+        if (block)
+        {
+            playerAttacked.isBlocking = true;
+            animator.SetTrigger("Block");
+            animator.SetBool("IsBlocking", true);
+        }
     }
 
     private void Update()
     {
-        if (Time.time - time > 3)
+        if (attack && Time.time - time > 3)
         {
             animator.SetTrigger("Attack");
+            isBlock = false;
             time = Time.time;
+        }
+
+        if (block && isBlock == false)
+        {
+            animator.SetTrigger("Block");
+            animator.SetBool("IsBlocking", true);
+            isBlock = true;
         }
     }
 }

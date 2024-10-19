@@ -11,6 +11,10 @@ public class PlayerAttacked : MonoBehaviour
     Animator animator;
     PlayerHealth health;
     PlayerStatusEffect statusEffect;
+    HandLSlot handLSlot;
+    AudioSource[] audioSource;
+
+    public bool isBlocking = false;
 
     private void Awake()
     {
@@ -18,20 +22,50 @@ public class PlayerAttacked : MonoBehaviour
         animator = GetComponent<Animator>();
         health = transform.parent.GetComponentInChildren<PlayerHealth>();
         statusEffect = transform.parent.GetComponentInChildren<PlayerStatusEffect>();
+        handLSlot = transform.parent.GetComponent<QuickRefer>().handLSlot;
+        audioSource = transform.parent.Find("Audio").GetComponents<AudioSource>();
     }
 
     public void GetAttacked(int damage, float force, Collider collider)
     {
-        if (!health.isInvincible)
+        if (health.isInvincible) return;
+
+        if (checkHit(collider))
         {
-            health.TakeDamage(damage);
-
-            Vector3 position = transform.position - collider.bounds.center;
-            position.z = 0;  // prevent wrong displacements
-            knockbackPos += position.normalized * force;  // add all forces if get attacked at the same time
-
-            animator.SetTrigger("Attacked");
+            Attacked(damage, force, collider);
         }
+        else
+        {
+            Blocked(damage);
+        }
+    }
+
+    public void Attacked(int damage, float force, Collider collider)
+    {
+        health.TakeDamage(damage);
+
+        Vector3 position = transform.position - collider.bounds.center;
+        position.z = 0;  // prevent wrong displacements
+        knockbackPos += position.normalized * force;  // add all forces if get attacked at the same time
+
+        if (isBlocking)
+        {
+            isBlocking = false;
+            animator.SetBool("IsBlocking", false);
+            animator.ResetTrigger("BlockAttack");
+        }
+
+        animator.SetTrigger("Attacked");
+        audioSource[0].Play();
+    }
+
+    public void Blocked(int damage)
+    {
+        Shield shield = handLSlot.GetCurrentItemObj()!.GetComponent<Shield>();
+        shield.Damage(damage);
+
+        animator.SetTrigger("BlockAttack");
+        audioSource[1].Play();
     }
 
     public void GetHeavyAttacked(int damage, float force, Collider collider)
@@ -46,6 +80,22 @@ public class PlayerAttacked : MonoBehaviour
 
             animator.SetTrigger("HeavyAttacked");
         }
+    }
+
+    private bool checkHit(Collider collider)
+    {
+        if (!isBlocking) return true;
+
+        float angle = Mathf.Acos(Mathf.Clamp(Vector3.Dot(collider.transform.forward, gameObject.transform.forward), -1f, 1f));
+
+        return angle < Mathf.PI / 2;
+    }
+
+    public void ShieldBroken()
+    {
+        isBlocking = false;
+        animator.SetBool("IsBlocking", false);
+        animator.ResetTrigger("BlockAttack");
     }
 
     public void Die()

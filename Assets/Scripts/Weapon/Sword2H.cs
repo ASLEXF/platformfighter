@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class Sword1H : MonoBehaviour, IWeapon
+public class Sword2H : MonoBehaviour, IWeapon
 {
     BoxCollider boxCollider;
     CapsuleCollider playerCollider;
 
     [SerializeField] bool isActive = false;
     [SerializeField] int damage = 1;
-    [SerializeField] float force = 1;
+    public float force = 2;
 
     private void Awake()
     {
@@ -54,7 +54,7 @@ public class Sword1H : MonoBehaviour, IWeapon
 
     #region One Strike
 
-    List<Collider> hitColliders = new List<Collider>();  // avoid duplicated interactions in one action
+    List<Collider> hitColliders = new List<Collider>();  // avoid many interactions in one action
 
     public void StartOneStrike()
     {
@@ -66,6 +66,6 @@ public class Sword1H : MonoBehaviour, IWeapon
         isActive = false;
         hitColliders.Clear();
     }
-     
+
     #endregion
 }

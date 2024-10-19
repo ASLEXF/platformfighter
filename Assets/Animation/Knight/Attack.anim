@@ -42814,7 +42814,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.33333334
+  - time: 0.38333333
     functionName: startWeaponOneStrike
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -42830,6 +42830,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.8333333
     functionName: stopAttacking
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.85
+    functionName: resumeBlock
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

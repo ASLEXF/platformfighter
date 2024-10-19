@@ -1,11 +1,21 @@
+# nullable enable
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HandLSlot : MonoBehaviour
 {
+    GameObject playerModel;
+
+    private void Awake()
+    {
+        playerModel = transform.root.GetChild(0).gameObject;
+    }
+
     public bool AddItem(string name)
     {
+        DropCurrentItem();
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(transform.GetChild(i).name == name);
@@ -14,7 +24,20 @@ public class HandLSlot : MonoBehaviour
         return true;
     }
 
-    public GameObject GetCurrentItemObj()
+    public void DropCurrentItem()
+    {
+        GameObject? currentItem = GetCurrentItemObj();
+        if (currentItem == null) return;
+
+        string path = $"Prefabs/{currentItem.name}";
+        GameObject prefanObj = Resources.Load<GameObject>(path);
+        Vector3 position = playerModel.transform.position + playerModel.transform.forward * 1 + new Vector3(0, 1.5f, 0);
+        Quaternion rotation = Quaternion.Euler(5, playerModel.transform.rotation.eulerAngles.y + 90, 90);
+
+        Instantiate(prefanObj, position, rotation);
+    }
+
+    public GameObject? GetCurrentItemObj()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -27,7 +50,7 @@ public class HandLSlot : MonoBehaviour
         return null;
     }
 
-    public IItem GetCurrentIItem()
+    public IItem? GetCurrentIItem()
     {
         for (int i = 0; i < transform.childCount; i++)
         {

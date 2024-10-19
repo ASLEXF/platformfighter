@@ -63,8 +63,10 @@
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerRespawn.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Sword2H.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandLSlot.cs" />
     <Compile Include="Assets\Scripts\Debug\TimeControl.cs" />
+    <Compile Include="Assets\Scripts\PlayerController\QuickRefer.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerAttack.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
@@ -76,18 +78,22 @@
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerHealth.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
+    <Compile Include="Assets\Scripts\Item\Shield.cs" />
     <Compile Include="Assets\Scripts\Weapon\Sword1H.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Enums\ItemTypeEnums.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandRSlot.cs" />
     <Compile Include="Assets\Scripts\PlayerController\Controller.cs" />
+    <Compile Include="Assets\Scripts\Weapon\IgnoreWeaponCollision.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\AnimationEvents.cs" />
     <Compile Include="Assets\Scripts\Item\DropItem.cs" />
     <Compile Include="Assets\Scripts\PlayerController\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerController\IgnoreCollision.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerStatusEffect.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameEvents.cs" />
+    <Compile Include="Assets\Scripts\PlayerAnimation\PlayerInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\WorldMaterialsFree\Shaders\WorldMatHDRPFree.shader" />

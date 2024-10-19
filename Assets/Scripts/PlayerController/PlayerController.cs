@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     Animator animator;
     PlayerAttack playerAttack;
+    PlayerAttacked playerAttacked;
     PlayerInteract playerInteract;
 
     [SerializeField] float walkSpeed = 0.9f;
@@ -17,12 +18,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float currentSpeed;
 
     [SerializeField] private GameObject playerObj;
-    [SerializeField] private GameObject connetPoint;
+    //[SerializeField] private GameObject connetPoint;
 
     [SerializeField] private Rigidbody playerRb;
-    [SerializeField] private Rigidbody connectRb;
-    [SerializeField] private SpringJoint spring_1;
-    [SerializeField] private SpringJoint spring_2;
+    //[SerializeField] private Rigidbody connectRb;
+    //[SerializeField] private SpringJoint spring_1;
+    //[SerializeField] private SpringJoint spring_2;
 
     public float RotationSmoothTime = 0.5f;
     private float _rotationVelocity;
@@ -33,26 +34,24 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = playerObj.GetComponent<Animator>();
         playerAttack = playerObj.GetComponent<PlayerAttack>();
+        playerAttacked = playerObj.GetComponent<PlayerAttacked>();
         playerInput = GetComponent<PlayerInput>();
-        playerInteract = playerObj.transform.GetChild(8).GetComponent<PlayerInteract>();
+        playerInteract = playerObj.transform.Find("Interact").GetComponent<PlayerInteract>();
     }
 
     private void Start()
     {
         playerObj.transform.position = transform.position;
-        initialInputAction();
     }
 
     private void Update()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        Vector3 move = transform.right * _rawInputMovement.x + transform.forward * _rawInputMovement.y;
 
         if (move == Vector3.zero)
         {
-            spring_1.connectedBody = null;
-            spring_2.connectedBody = null;
+            //spring_1.connectedBody = null;
+            //spring_2.connectedBody = null;
 
             playerRb.velocity = Vector3.zero;
 
@@ -63,8 +62,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            spring_1.connectedBody = connectRb;
-            spring_2.connectedBody = null;
+            //spring_1.connectedBody = connectRb;
+            //spring_2.connectedBody = null;
 
             if (!isRunning)
             {
@@ -93,7 +92,7 @@ public class PlayerController : MonoBehaviour
     #region Input System
 
     PlayerInput playerInput;
-    InputAction move, shield;
+    InputAction shield;
 
     Vector2 _rawInputMovement;
 
@@ -101,9 +100,6 @@ public class PlayerController : MonoBehaviour
 
     void initialInputAction()
     {
-        //run = playerInput.actions.FindActionMap("Keyboard").FindAction("Run");
-        //run.canceled += OnRunCanceled;
-
         shield = playerInput.actions.FindActionMap("Keyboard").FindAction("Shield");
         //shield.canceled += OnShieldCanceled;
     }
@@ -119,16 +115,11 @@ public class PlayerController : MonoBehaviour
         isRunning = context.performed;
     }
 
-    //public void OnRunCanceled(InputAction.CallbackContext value)
-    //{
-    //    isRunning
-    //}
-
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            animator.SetTrigger("Attack");
+            playerAttack.Attack();
         }
     }
 
@@ -142,12 +133,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnShield(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            animator.SetTrigger("Block");
-            
-        }
-        animator.SetBool("IsBlocking", context.performed);
+        playerAttack.Block(context);
     }
 
     public void OnInteract(InputAction.CallbackContext context)
