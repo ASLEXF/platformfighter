@@ -8,8 +8,8 @@ public class PlayerInteract : MonoBehaviour
 {
     Animator animator;
     GameObject charactorObj;
-    [SerializeField] HandLSlot handLSlot;
-    [SerializeField] HandRSlot handRSlot;
+    HandLSlot handLSlot;
+    HandRSlot handRSlot;
 
     [SerializeField] List<DropItem> dropItems;
     [SerializeField] DropItem? currentItem;
@@ -20,6 +20,8 @@ public class PlayerInteract : MonoBehaviour
     {
         animator = transform.parent.GetComponent<Animator>();
         charactorObj = transform.parent.gameObject;
+        handLSlot = GetComponentInParent<QuickRefer>().handLSlot;
+        handRSlot = GetComponentInParent<QuickRefer>().handRSlot;
     }
 
     private void Start()

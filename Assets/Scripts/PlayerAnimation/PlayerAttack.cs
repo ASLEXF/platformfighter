@@ -29,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
         animator.SetTrigger("Attack");
 
         animator.SetBool("IsBlocking", false);
-        animator.ResetTrigger("BlockAttack");
+        animator.ResetTrigger("BlockAttacked");
         playerAttacked.isBlocking = false;
     }
 

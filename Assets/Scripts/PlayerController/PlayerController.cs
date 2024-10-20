@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        playerObj = transform.parent.GetChild(0).gameObject;
+        playerRb = playerObj.GetComponent<Rigidbody>();
         animator = playerObj.GetComponent<Animator>();
         playerAttack = playerObj.GetComponent<PlayerAttack>();
         playerAttacked = playerObj.GetComponent<PlayerAttacked>();
@@ -87,6 +89,18 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetFloat("Speed", currentSpeed);
+    }
+
+    public void Respawn()
+    {
+        playerInput.enabled = true;
+        rb.constraints = RigidbodyConstraints.None;
+    }
+
+    public void Die()
+    {
+        playerInput.enabled = false;
+        rb.constraints = RigidbodyConstraints.FreezePositionY;
     }
 
     #region Input System

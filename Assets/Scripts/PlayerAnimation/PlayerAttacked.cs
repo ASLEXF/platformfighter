@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class PlayerAttacked : MonoBehaviour
 {
+    CapsuleCollider capsuleCollider;
     PlayerController controller;
     Animator animator;
     PlayerHealth health;
@@ -18,6 +19,7 @@ public class PlayerAttacked : MonoBehaviour
 
     private void Awake()
     {
+        capsuleCollider = GetComponent<CapsuleCollider>();
         controller = transform.parent.GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
         health = transform.parent.GetComponentInChildren<PlayerHealth>();
@@ -52,10 +54,11 @@ public class PlayerAttacked : MonoBehaviour
         {
             isBlocking = false;
             animator.SetBool("IsBlocking", false);
-            animator.ResetTrigger("BlockAttack");
+            animator.ResetTrigger("BlockAttacked");
         }
 
-        animator.SetTrigger("Attacked");
+        if (statusEffect.lifeStatus == LifeStatusEnum.Alive)
+            animator.SetTrigger("Attacked");
         audioSource[0].Play();
     }
 
@@ -64,7 +67,7 @@ public class PlayerAttacked : MonoBehaviour
         Shield shield = handLSlot.GetCurrentItemObj()!.GetComponent<Shield>();
         shield.Damage(damage);
 
-        animator.SetTrigger("BlockAttack");
+        animator.SetTrigger("BlockAttacked");
         audioSource[1].Play();
     }
 
@@ -95,7 +98,7 @@ public class PlayerAttacked : MonoBehaviour
     {
         isBlocking = false;
         animator.SetBool("IsBlocking", false);
-        animator.ResetTrigger("BlockAttack");
+        animator.ResetTrigger("BlockAttacked");
     }
 
     public void Die()
@@ -139,8 +142,8 @@ public class PlayerAttacked : MonoBehaviour
 
     private void getStunned()
     {
-        controller.StopAllCoroutines();
-        controller.GetComponent<NavMeshAgent>().ResetPath();
+        //controller.StopAllCoroutines();
+        //controller.GetComponent<NavMeshAgent>().ResetPath();
         //statusEffect.Stunned = true;
     }
 

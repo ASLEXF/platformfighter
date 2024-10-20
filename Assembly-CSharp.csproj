@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerInteract\PlayerInteract.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Interfaces.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Axe1H.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerRespawn.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Enums\ItemTypeEnums.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandRSlot.cs" />
+    <Compile Include="Assets\Scripts\PlayerAnimation\PlayerInterface.cs" />
     <Compile Include="Assets\Scripts\PlayerController\Controller.cs" />
     <Compile Include="Assets\Scripts\Weapon\IgnoreWeaponCollision.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
@@ -93,7 +95,6 @@
     <Compile Include="Assets\Scripts\PlayerController\IgnoreCollision.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerStatusEffect.cs" />
     <Compile Include="Assets\Scripts\Manager\GameEvents.cs" />
-    <Compile Include="Assets\Scripts\PlayerAnimation\PlayerInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\WorldMaterialsFree\Shaders\WorldMatHDRPFree.shader" />

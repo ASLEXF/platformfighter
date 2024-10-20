@@ -24,7 +24,7 @@ public class Sword1H : MonoBehaviour, IWeapon
         gameObject.tag = "Weapon";
     }
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerStay(Collider collider)
     {
         if (!isActive) return;
         if (hitColliders.Contains(collider)) return;
@@ -43,12 +43,8 @@ public class Sword1H : MonoBehaviour, IWeapon
 
     private void DrawContactPoint(Collider other)
     {
-        // 计算和显示接触点
-        // 这里我们简单使用物体的位置作为碰撞点，实际应用中可以通过其他方式计算
         Vector3 contactPoint = other.bounds.ClosestPoint(transform.position);
-        // 在控制台输出接触点
         Debug.Log($"接触点: {contactPoint}");
-        // 用 Debug.DrawSphere 在接触点位置绘制一个球（这个球将只在 Game 视图中可见）
         Debug.DrawLine(contactPoint, contactPoint + Vector3.up * 2f, Color.red, 3f);
     }
 

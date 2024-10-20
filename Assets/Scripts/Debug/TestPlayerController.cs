@@ -54,4 +54,14 @@ public class TestPlayerController : MonoBehaviour
             isBlock = true;
         }
     }
+
+    public void Respawn()
+    {
+        Debug.Log("test player respawn");
+    }
+
+    public void Die()
+    {
+        Debug.Log("test player die");
+    }
 }

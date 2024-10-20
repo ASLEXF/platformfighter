@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    PlayerController playerController;
     PlayerAttacked playerAttacked;
     PlayerRespawn playerRespawn;
+    PlayerStatusEffect playerStatusEffect;
 
     [SerializeField] int maxHealth = 3;
-    [SerializeField] int currentHealth;
+    [SerializeField] public int currentHealth;
 
     public bool isInvincible = false;
 
     private void Awake()
     {
+        playerController = transform.parent.Find("Control Point").GetComponent<PlayerController>();
         playerAttacked = transform.parent.GetChild(0).GetComponent<PlayerAttacked>();
         playerRespawn = GetComponent<PlayerRespawn>();
+        playerStatusEffect = GetComponent<PlayerStatusEffect>();
     }
 
     private void Start()
@@ -32,7 +36,17 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
+            playerStatusEffect.lifeStatus = LifeStatusEnum.DeadEmpty;
             currentHealth = 0;
+            if (playerController == null)
+            {
+                TestPlayerController controller = transform.parent.Find("Control Point").GetComponent<TestPlayerController>();
+                controller.Die();
+            }
+            else
+            {
+                playerController.Die();
+            }
             playerAttacked.Die();
             StartCoroutine(respawn(3));
         }
@@ -41,6 +55,6 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator respawn(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        playerRespawn.Respawn();
+        //playerRespawn.Respawn();
     }
 }

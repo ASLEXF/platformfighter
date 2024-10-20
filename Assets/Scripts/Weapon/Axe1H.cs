@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class Sword2H : MonoBehaviour, IWeapon
+public class Axe1H : MonoBehaviour, IWeapon
 {
     BoxCollider boxCollider;
     CapsuleCollider playerCollider;
 
     [SerializeField] bool isActive = false;
     [SerializeField] int damage = 1;
-    public float force = 2;
+    [SerializeField] float force = 1;
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class Sword2H : MonoBehaviour, IWeapon
 
     private void DrawContactPoint(Collider other)
     {
+        if (other.CompareTag("Platform")) return;
         Vector3 contactPoint = other.bounds.ClosestPoint(transform.position);
         Debug.Log($"½Ó´¥µã: {contactPoint}");
         Debug.DrawLine(contactPoint, contactPoint + Vector3.up * 2f, Color.red, 3f);
@@ -50,7 +52,7 @@ public class Sword2H : MonoBehaviour, IWeapon
 
     #region One Strike
 
-    List<Collider> hitColliders = new List<Collider>();  // avoid many interactions in one action
+    List<Collider> hitColliders = new List<Collider>();  // avoid duplicated interactions in one action
 
     public void StartOneStrike()
     {
