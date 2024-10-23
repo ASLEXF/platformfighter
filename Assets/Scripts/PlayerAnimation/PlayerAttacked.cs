@@ -81,7 +81,9 @@ public class PlayerAttacked : MonoBehaviour
             position.z = 0;  // prevent wrong displacements
             knockbackPos += position.normalized * force;  // add all forces if get attacked at the same time
 
-            animator.SetTrigger("HeavyAttacked");
+            if (statusEffect.lifeStatus == LifeStatusEnum.Alive)
+                animator.SetTrigger("HeavyAttacked");
+            audioSource[0].Play();
         }
     }
 

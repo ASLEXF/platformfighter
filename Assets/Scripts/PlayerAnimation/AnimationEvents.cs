@@ -54,11 +54,11 @@ public class AnimationEvents : MonoBehaviour
         //weaponObj.SetActive(false);
 
         string path = $"Prefabs/{weaponObj.name}";
-        GameObject prefanObj = Resources.Load<GameObject>(path);
+        GameObject prefabObj = Resources.Load<GameObject>(path);
         Vector3 position = gameObject.transform.position + gameObject.transform.forward * 1 + new Vector3(0, 1.5f, 0);
-        Quaternion rotation = Quaternion.Euler(5, gameObject.transform.rotation.eulerAngles.y + 90, 90);
+        Quaternion rotation = Quaternion.Euler(185, gameObject.transform.rotation.eulerAngles.y + 90, 90);
 
-        GameObject projectile = Instantiate(prefanObj, position, rotation);
+        GameObject projectile = Instantiate(prefabObj, position, rotation);
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         rb.velocity = gameObject.transform.forward * 20.0f;
 
@@ -68,6 +68,7 @@ public class AnimationEvents : MonoBehaviour
         dropItem.isThrown = true;
 
         dropItem.collisionObjs.Add(gameObject);
+        StartCoroutine(dropItem.SetThrown());
     }
 
     private void resumeBlock()

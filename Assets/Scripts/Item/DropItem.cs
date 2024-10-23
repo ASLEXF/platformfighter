@@ -22,6 +22,8 @@ public class DropItem : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         meshCollider = GetComponent<MeshCollider>();
         materialPropertyBlock = new MaterialPropertyBlock();
+
+        tag = "Item";
     }
 
     private void Update()
@@ -75,6 +77,12 @@ public class DropItem : MonoBehaviour
             //Vector3 newDirection = (transform.right + transform.forward + transform.up).normalized;
             //rb.velocity = rb.velocity.magnitude * newDirection;
         }
+    }
+
+    public IEnumerator SetThrown()
+    {
+        yield return new WaitForSeconds(3);
+        isThrown = false;
     }
 
     #endregion

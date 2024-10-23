@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6277851179252381279}
   m_Layer: 0
   m_Name: 1H_Axe
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6277851179252381278}
-  m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.170534, y: -1.259748, z: -2.4409256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7423125517761585655, guid: 61a5c05df88cca048a55c4fa82ea620d, type: 3}
+  - {fileID: 2100000, guid: 7d26fab34bc72044e85e578eccb31bf4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

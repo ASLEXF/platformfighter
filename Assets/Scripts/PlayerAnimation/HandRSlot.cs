@@ -7,18 +7,45 @@ using UnityEngine;
 public class HandRSlot : MonoBehaviour
 {
     GameObject playerModel;
+    HandLSlot handLSlot;
 
     private void Awake()
     {
-        playerModel = transform.root.GetChild(0).gameObject;
+        playerModel = transform.GetComponentInParent<QuickRefer>().gameObject.transform.GetChild(0).gameObject;
+        handLSlot = transform.GetComponentInParent<QuickRefer>().handLSlot;
     }
 
-    public bool AddWeapon(string name)
+    public bool AddWeaponKnight(string name)
     {
         DropCurrentWeapon();
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(transform.GetChild(i).name == name);
+        }
+
+        return true;
+    }
+
+    public bool AddWeaponBarbarian(string name)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).name == name)
+            {
+                if (transform.GetChild(i).gameObject.activeSelf)
+                {
+                    return handLSlot.AddWeaponLBarbarian(name);
+                }
+                else
+                {
+                    DropCurrentWeapon();
+                    transform.GetChild(i).gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
 
         return true;

@@ -10,10 +10,21 @@ public class HandLSlot : MonoBehaviour
 
     private void Awake()
     {
-        playerModel = transform.root.GetChild(0).gameObject;
+        playerModel = transform.GetComponentInParent<QuickRefer>().gameObject.transform.GetChild(0).gameObject;
     }
 
     public bool AddItem(string name)
+    {
+        DropCurrentItem();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(transform.GetChild(i).name == name);
+        }
+
+        return true;
+    }
+
+    public bool AddWeaponLBarbarian(string name)
     {
         DropCurrentItem();
         for (int i = 0; i < transform.childCount; i++)

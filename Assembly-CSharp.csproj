@@ -86,13 +86,17 @@
     <Compile Include="Assets\Scripts\Enums\ItemTypeEnums.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandRSlot.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerInterface.cs" />
+    <Compile Include="Assets\Scripts\Platform\RotatingPlatform.cs" />
+    <Compile Include="Assets\Scripts\Manager\ItemManager.cs" />
     <Compile Include="Assets\Scripts\PlayerController\Controller.cs" />
     <Compile Include="Assets\Scripts\Weapon\IgnoreWeaponCollision.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\AnimationEvents.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Axe2H.cs" />
     <Compile Include="Assets\Scripts\Item\DropItem.cs" />
     <Compile Include="Assets\Scripts\PlayerController\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerController\IgnoreCollision.cs" />
+    <Compile Include="Assets\Scripts\Platform\ConveyerBelt.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerStatusEffect.cs" />
     <Compile Include="Assets\Scripts\Manager\GameEvents.cs" />
   </ItemGroup>

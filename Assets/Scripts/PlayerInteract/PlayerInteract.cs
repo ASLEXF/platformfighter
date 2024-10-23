@@ -93,7 +93,7 @@ public class PlayerInteract : MonoBehaviour
                 {
                     if (charactorObj.name == "Knight")
                     {
-                        if(handRSlot.AddWeapon(currentItem.itemName))
+                        if(handRSlot.AddWeaponKnight(currentItem.itemName))
                         {
                             Destroy(currentItem.gameObject);
                             dropItems.Remove(currentItem);
@@ -119,7 +119,7 @@ public class PlayerInteract : MonoBehaviour
                 {
                     if (charactorObj.name == "Barbarian")
                     {
-                        if (handRSlot.AddWeapon(currentItem.itemName))
+                        if (handRSlot.AddWeaponBarbarian(currentItem.itemName))
                         {
                             Destroy(currentItem.gameObject);
                             dropItems.Remove(currentItem);
@@ -128,17 +128,9 @@ public class PlayerInteract : MonoBehaviour
 
                     break;
                 }
-                case ItemType.barbarianItem:
+                default:
                 {
-                    if (charactorObj.name == "Barbarian")
-                    {
-                        if (handLSlot.AddItem(currentItem.itemName))
-                        {
-                            Destroy(currentItem.gameObject);
-                            dropItems.Remove(currentItem);
-                        }
-                    }
-
+                    Debug.LogWarning($"unhandled item '{currentItem}'");
                     break;
                 }
             }

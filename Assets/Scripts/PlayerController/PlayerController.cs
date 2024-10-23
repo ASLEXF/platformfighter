@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,23 +13,30 @@ public class PlayerController : MonoBehaviour
     PlayerAttacked playerAttacked;
     PlayerInteract playerInteract;
 
+    public Vector3 movePosition;
+
     [SerializeField] float walkSpeed = 0.9f;
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float deceleration = 0.6f;
     [SerializeField] float acceleration = 4f;
     [SerializeField] float currentSpeed;
 
-    [SerializeField] private GameObject playerObj;
-    //[SerializeField] private GameObject connetPoint;
+    [SerializeField] GameObject playerObj;
+    //[SerializeField] GameObject connetPoint;
 
-    [SerializeField] private Rigidbody playerRb;
-    //[SerializeField] private Rigidbody connectRb;
-    //[SerializeField] private SpringJoint spring_1;
-    //[SerializeField] private SpringJoint spring_2;
+    [SerializeField] Rigidbody playerRb;
+    //[SerializeField] Rigidbody connectRb;
+    //[SerializeField] SpringJoint spring_1;
+    //[SerializeField] SpringJoint spring_2;
 
-    public float RotationSmoothTime = 0.5f;
+    [SerializeField] bool Grounded = false;
+    [SerializeField] LayerMask GroundLayers;
+    [SerializeField] float GroundedOffset = -0.14f;
+    [SerializeField] float GroundedRadius = 0.28f;
+
+    private float rotationSmoothTime = 0.5f;
     private float _rotationVelocity;
-    private float rotateY;
+    private float _rotateY;
 
     private void Awake()
     {
@@ -44,9 +53,15 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerObj.transform.position = transform.position;
+        movePosition = playerObj.transform.position;
     }
 
     private void Update()
+    {
+        GroundedCheck();
+    }
+
+    private void FixedUpdate()
     {
         Vector3 move = transform.right * _rawInputMovement.x + transform.forward * _rawInputMovement.y;
 
@@ -81,32 +96,35 @@ public class PlayerController : MonoBehaviour
                 currentSpeed = Mathf.MoveTowards(currentSpeed, runSpeed, acceleration * Time.fixedDeltaTime);
             }
 
-            playerRb.MovePosition(playerRb.position + move * currentSpeed * Time.deltaTime);
+            movePosition += move * currentSpeed * Time.deltaTime;
 
-            rotateY = playerObj.transform.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(rotateY, Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg, ref _rotationVelocity, RotationSmoothTime);
+            _rotateY = playerObj.transform.eulerAngles.y;
+            float rotation = Mathf.SmoothDampAngle(_rotateY, Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg, ref _rotationVelocity, rotationSmoothTime);
             playerObj.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
         }
+
+        if (Grounded)
+            playerRb.MovePosition(movePosition);
 
         animator.SetFloat("Speed", currentSpeed);
     }
 
-    public void Respawn()
+    private void GroundedCheck()
     {
-        playerInput.enabled = true;
-        rb.constraints = RigidbodyConstraints.None;
-    }
-
-    public void Die()
-    {
-        playerInput.enabled = false;
-        rb.constraints = RigidbodyConstraints.FreezePositionY;
+        Vector3 spherePosition = new Vector3(playerObj.transform.position.x, playerObj.transform.position.y - GroundedOffset,
+            playerObj.transform.position.z);
+        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
+            QueryTriggerInteraction.Ignore);
+        if (Grounded)
+        {
+            movePosition = playerObj.transform.position;
+        }
     }
 
     #region Input System
 
     PlayerInput playerInput;
-    InputAction shield;
+    //InputAction shield;
 
     Vector2 _rawInputMovement;
 
@@ -114,7 +132,7 @@ public class PlayerController : MonoBehaviour
 
     void initialInputAction()
     {
-        shield = playerInput.actions.FindActionMap("Keyboard").FindAction("Shield");
+        //shield = playerInput.actions.FindActionMap("Keyboard").FindAction("Shield");
         //shield.canceled += OnShieldCanceled;
     }
 
@@ -162,6 +180,22 @@ public class PlayerController : MonoBehaviour
     //{
     //    animator.SetBool("IsBlocking", false);
     //}
+
+    #endregion
+
+    #region Die & Respawn
+
+    public void Respawn()
+    {
+        playerInput.enabled = true;
+        rb.constraints = RigidbodyConstraints.None;
+    }
+
+    public void Die()
+    {
+        playerInput.enabled = false;
+        rb.constraints = RigidbodyConstraints.FreezePositionY;
+    }
 
     #endregion
 }
