@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     PlayerInteract playerInteract;
 
     public Vector3 movePosition;
+    public Vector3 playerVelocity;
 
     [SerializeField] float walkSpeed = 0.9f;
     [SerializeField] float runSpeed = 5f;
@@ -52,8 +53,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        playerObj.transform.position = transform.position;
         movePosition = playerObj.transform.position;
+        playerVelocity = new Vector3();
     }
 
     private void Update()
@@ -63,14 +64,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 move = transform.right * _rawInputMovement.x + transform.forward * _rawInputMovement.y;
+        Vector3 move = (transform.right * _rawInputMovement.x + transform.forward * _rawInputMovement.y).normalized;
 
         if (move == Vector3.zero)
         {
             //spring_1.connectedBody = null;
             //spring_2.connectedBody = null;
 
-            playerRb.velocity = Vector3.zero;
+            //playerRb.velocity = Vector3.zero;
 
             //transform.position = playerObj.transform.position;
             //connetPoint.transform.position = transform.position;
@@ -104,7 +105,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Grounded)
-            playerRb.MovePosition(movePosition);
+            playerRb.velocity = playerVelocity + move * currentSpeed;
+            //playerRb.AddForce(force);
+            //playerRb.MovePosition(movePosition);
 
         animator.SetFloat("Speed", currentSpeed);
     }

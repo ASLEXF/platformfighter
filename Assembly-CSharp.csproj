@@ -86,7 +86,7 @@
     <Compile Include="Assets\Scripts\Enums\ItemTypeEnums.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandRSlot.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerInterface.cs" />
-    <Compile Include="Assets\Scripts\Platform\RotatingPlatform.cs" />
+    <Compile Include="Assets\Scripts\Platform\Spinning.cs" />
     <Compile Include="Assets\Scripts\Manager\ItemManager.cs" />
     <Compile Include="Assets\Scripts\PlayerController\Controller.cs" />
     <Compile Include="Assets\Scripts\Weapon\IgnoreWeaponCollision.cs" />

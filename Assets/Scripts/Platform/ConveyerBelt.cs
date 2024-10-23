@@ -11,37 +11,38 @@ public class ConveyerBelt : MonoBehaviour
 
     private void Awake()
     {
-        rotationSpeed = GetComponent<RotatingPlatform>().rotationSpeed;
+        rotationSpeed = GetComponent<Spinning>().rotationSpeed;
         center = transform.GetChild(0);
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionStay(Collision other)
     {
-        if (other.CompareTag("Platform")) return;
+        if (other.gameObject.CompareTag("Platform")) return;
 
         Vector3 direction = other.transform.position - center.position;
-        direction.z = 0;
+        direction.y = 0;
         float step = rotationSpeed * Time.fixedDeltaTime;
         Quaternion rotation = Quaternion.Euler(0, step, 0);
         direction = rotation * direction.normalized;
 
-        Rigidbody rb = other.GetComponent<Rigidbody>();
+        Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
-            if (other.CompareTag("Player"))
-            {
-                PlayerController playerController = other.transform.parent.GetComponentInChildren<PlayerController>();
-                if (playerController != null)
-                {
-                    playerController.movePosition += direction;
-                }
-            }
-            else
-                rb.gameObject.transform.RotateAround(center.position, Vector3.up, rotationSpeed * Time.deltaTime);
+            //if (other.gameObject.CompareTag("Player"))
+            //{
+            //    //PlayerController playerController = other.transform.parent.GetComponentInChildren<PlayerController>();
+            //    //if (playerController != null)
+            //    //{
+            //    //    Debug.Log($"{direction}");
+            //    //    playerController.movePosition += direction;
+            //    //}
+            //}
+            //else
+            //    rb.velocity = direction;
+            rb.gameObject.transform.RotateAround(center.position, Vector3.up, rotationSpeed * Time.deltaTime);
             //Vector3 relative = rb.position - center.position;
             //relative.z = 0;
-
 
             //Quaternion rotation;
             //if (rotationSpeed > 0) {

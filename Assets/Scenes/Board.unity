@@ -3351,8 +3351,8 @@ GameObject:
   - component: {fileID: 1247914628}
   - component: {fileID: 1247914633}
   - component: {fileID: 1247914634}
-  m_Layer: 0
-  m_Name: RotatePlatform
+  m_Layer: 3
+  m_Name: SpinningPlatform
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3365,11 +3365,11 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247914627}
-  m_Material: {fileID: 13400000, guid: 076546bdc8dc9a54ba30f6192e30aa4a, type: 2}
-  m_IsTrigger: 1
+  m_Material: {fileID: 13400000, guid: 46a21eb98cf187347a22a60eada9873c, type: 2}
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1079669436}
 --- !u!33 &1247914629
@@ -10572,11 +10572,11 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977236425}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 46a21eb98cf187347a22a60eada9873c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 385445882}
 --- !u!33 &1977236427
@@ -11316,6 +11316,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2008594289}
     m_Modifications:
+    - target: {fileID: 6277851179252381277, guid: efdf42a53c720c0408f6ff34d97dd0be, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 9837ebc97f3cba8428870781d3971f98, type: 2}
     - target: {fileID: 6277851179252381278, guid: efdf42a53c720c0408f6ff34d97dd0be, type: 3}
       propertyPath: m_Name
       value: 1H_Axe
@@ -11376,10 +11380,18 @@ PrefabInstance:
     - target: {fileID: 1903306267825912235, guid: 11b27103481c4c1489396a19b84a6145, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: a4892b87605352f479b37a805f3c09c2, type: 2}
+      objectReference: {fileID: 13400000, guid: 9837ebc97f3cba8428870781d3971f98, type: 2}
     - target: {fileID: 2642897739941311100, guid: 11b27103481c4c1489396a19b84a6145, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582549644509247617, guid: 11b27103481c4c1489396a19b84a6145, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052758867930438877, guid: 11b27103481c4c1489396a19b84a6145, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6052758867930438884, guid: 11b27103481c4c1489396a19b84a6145, type: 3}
       propertyPath: center
@@ -11439,7 +11451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6414731030114171989, guid: 11b27103481c4c1489396a19b84a6145, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11b27103481c4c1489396a19b84a6145, type: 3}
@@ -11781,7 +11793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7407318720608635951, guid: 9982f0193978bd9418407dcf16fa7ec2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9982f0193978bd9418407dcf16fa7ec2, type: 3}
