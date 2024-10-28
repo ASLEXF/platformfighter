@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rb;
     Animator animator;
     PlayerAttack playerAttack;
     PlayerAttacked playerAttacked;
@@ -41,7 +40,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         playerObj = transform.parent.GetChild(0).gameObject;
         playerRb = playerObj.GetComponent<Rigidbody>();
         animator = playerObj.GetComponent<Animator>();
@@ -191,13 +189,13 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
         playerInput.enabled = true;
-        rb.constraints = RigidbodyConstraints.None;
+        playerRb.constraints = RigidbodyConstraints.None;
     }
 
     public void Die()
     {
         playerInput.enabled = false;
-        rb.constraints = RigidbodyConstraints.FreezePositionY;
+        playerRb.constraints = RigidbodyConstraints.FreezePositionY;
     }
 
     #endregion

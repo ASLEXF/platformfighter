@@ -14,6 +14,12 @@ public class ItemManager : MonoBehaviour
     [SerializeField] GameObject platform;
     [SerializeField] List<GameObject> prefabs = new List<GameObject>();
     [SerializeField] float height = 5.0f;
+    [SerializeField] string prefabPath = "Assets/Resources/Prefabs/Items";
+
+    private void Awake()
+    {
+        prefabs = new List<GameObject>(Resources.LoadAll<GameObject>(prefabPath));
+    }
 
     public async Task GenerateItems(int number)
     {
@@ -23,9 +29,7 @@ public class ItemManager : MonoBehaviour
         {
             int index = Random.Range(0, prefabs.Count);
             Vector3 position = getRandomPointOnPlatform();
-            tasks.Add(Task.Run(() => {
-                generateItem(prefabs[i], position);
-            }));
+            tasks.Add(generateItem(prefabs[i], position));
         }
         await Task.WhenAll(tasks);
     }
@@ -48,6 +52,9 @@ public class ItemManager : MonoBehaviour
 
     private async Task<GameObject> generateItem(GameObject prefab, Vector3 position)
     {
-        return Instantiate(prefab, position, Quaternion.Euler(0, 0, 0));
+        return await Task.Run(() =>
+        {
+            return Instantiate(prefab, position, Quaternion.Euler(0, 0, 0));
+        });
     }
 }

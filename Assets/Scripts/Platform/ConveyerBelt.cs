@@ -9,7 +9,7 @@ public class ConveyerBelt : MonoBehaviour
     float rotationSpeed;
     Transform center;
 
-    private void Awake()
+    private void Update()
     {
         rotationSpeed = GetComponent<Spinning>().rotationSpeed;
         center = transform.GetChild(0);

@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Interfaces\Interfaces.cs" />
     <Compile Include="Assets\Scripts\Weapon\Axe1H.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerRespawn.cs" />
+    <Compile Include="Assets\Scripts\Item\ItemHeightChecker.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
     <Compile Include="Assets\Scripts\Weapon\Sword2H.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Assets\Scripts\PlayerController\QuickRefer.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerAttack.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Camera\MultiPlayerVCam.cs" />
     <Compile Include="Assets\Scripts\Debug\TestPlayerController.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
     <Compile Include="Assets\Scripts\Enums\PlayerStatusEnums.cs" />
@@ -80,10 +81,12 @@
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\Scripts\Item\Shield.cs" />
+    <Compile Include="Assets\Scripts\PlayerController\PlayerHeightChecker.cs" />
     <Compile Include="Assets\Scripts\Weapon\Sword1H.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Enums\ItemTypeEnums.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandRSlot.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerInterface.cs" />
     <Compile Include="Assets\Scripts\Platform\Spinning.cs" />
@@ -101,13 +104,9 @@
     <Compile Include="Assets\Scripts\Manager\GameEvents.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\WorldMaterialsFree\Shaders\WorldMatHDRPFree.shader" />
-    <None Include="Assets\WorldMaterialsFree\Shaders\WorldMatLiteFree.shader" />
-    <None Include="Assets\WorldMaterialsFree\Shaders\WorldMatFree.shader" />
     <None Include="Assets\StarterAssets\Environment\Shaders\Built-in_RP\Triplanar.shader" />
     <None Include="Assets\StarterAssets\license.txt" />
     <None Include="Assets\License.txt" />
-    <None Include="Assets\WorldMaterialsFree\Shaders\WorldMatURPFree.shader" />
     <None Include="Assets\StarterAssets\Environment\Shaders\Built-in_RP\ArmatureShader.shader" />
   </ItemGroup>
   <ItemGroup>
@@ -413,10 +412,6 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.25f1c1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -879,6 +874,10 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.25f1c1\Editor\Data\NetStandard\compat\2.0.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
       <Private>False</Private>
@@ -905,6 +904,10 @@
     </Reference>
     <Reference Include="Unity.ProBuilder.AddOns.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VectorGraphics">

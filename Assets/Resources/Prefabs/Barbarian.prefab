@@ -516,6 +516,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66770df595e719e478f28e3c02c47c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movePosition: {x: 0, y: 0, z: 0}
+  playerVelocity: {x: 0, y: 0, z: 0}
   walkSpeed: 0.9
   runSpeed: 5
   deceleration: 0.6
@@ -523,7 +525,12 @@ MonoBehaviour:
   currentSpeed: 0
   playerObj: {fileID: 0}
   playerRb: {fileID: 0}
-  RotationSmoothTime: 0.5
+  Grounded: 0
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 520
+  GroundedOffset: -0.14
+  GroundedRadius: 0.28
 --- !u!114 &6052758867930438882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,7 +992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c5d77db48fcf5b4f8fd2e22f88ba8f0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.21
+      value: -1.21
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1c5d77db48fcf5b4f8fd2e22f88ba8f0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1360,6 +1367,10 @@ PrefabInstance:
       value: Barbarian
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1c5d77db48fcf5b4f8fd2e22f88ba8f0, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1c5d77db48fcf5b4f8fd2e22f88ba8f0, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -1638,7 +1649,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 5
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1651,7 +1662,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3451628483578570950}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9837ebc97f3cba8428870781d3971f98, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.637516
