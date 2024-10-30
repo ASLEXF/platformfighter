@@ -14,6 +14,7 @@ public class PlayerAttacked : MonoBehaviour
     PlayerStatusEffect statusEffect;
     HandLSlot handLSlot;
     AudioSource[] audioSource;
+    Transform VFX;
 
     public bool isBlocking = false;
 
@@ -26,9 +27,10 @@ public class PlayerAttacked : MonoBehaviour
         statusEffect = transform.parent.GetComponentInChildren<PlayerStatusEffect>();
         handLSlot = transform.parent.GetComponent<QuickRefer>().handLSlot;
         audioSource = transform.parent.Find("Audio").GetComponents<AudioSource>();
+        VFX = transform.parent.Find("VFX");
     }
 
-    public void GetAttacked(int damage, float force, Collider collider)
+    public void GetAttacked(int damage, float force, Collider collider, Vector3 point = new Vector3())
     {
         if (health.isInvincible) return;
 
@@ -38,7 +40,7 @@ public class PlayerAttacked : MonoBehaviour
         }
         else
         {
-            Blocked(damage);
+            Blocked(damage, point);
         }
     }
 
@@ -62,13 +64,16 @@ public class PlayerAttacked : MonoBehaviour
         audioSource[0].Play();
     }
 
-    public void Blocked(int damage)
+    public void Blocked(int damage, Vector3 point)
     {
         Shield shield = handLSlot.GetCurrentItemObj()!.GetComponent<Shield>();
         shield.Damage(damage);
 
         animator.SetTrigger("BlockAttacked");
         audioSource[1].Play();
+        Transform spark = VFX.Find("Spark");
+        spark.position = point;
+        spark.GetComponent<ParticleSystem>().Play();
     }
 
     public void GetHeavyAttacked(int damage, float force, Collider collider)
@@ -106,6 +111,11 @@ public class PlayerAttacked : MonoBehaviour
     public void Die()
     {
         animator.SetTrigger("Die");
+    }
+
+    public void Respawn()
+    {
+        animator.SetTrigger("Respawn");
     }
 
     #region Knockback

@@ -1,8 +1,7 @@
 public enum LifeStatusEnum
 {
     Alive = 0,
-    DeadWithItem = 1,
-    DeadEmpty = 2
+    Dead = 1,
 }
 
 public enum DebuffEnum

@@ -22,4 +22,20 @@ public class GameEvents : MonoBehaviour
     public void ItemDropped() => OnItemDropped?.Invoke();
 
     #endregion
+
+    #region Player
+
+    public event Action OnPlayer1Die;
+    public event Action OnPlayer2Die;
+
+    public void PlayerDie(int id)
+    {
+        switch (id)
+        {
+            case 1: OnPlayer1Die?.Invoke(); break;
+            case 2: OnPlayer2Die?.Invoke(); break;
+        }
+    }
+
+    #endregion
 }

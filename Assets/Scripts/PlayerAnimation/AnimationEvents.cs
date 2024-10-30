@@ -51,9 +51,9 @@ public class AnimationEvents : MonoBehaviour
     private void throwWeapon()
     {
         GameObject weaponObj = handRSlot.GetCurrentWeaponObj();
-        //weaponObj.SetActive(false);
+        weaponObj.SetActive(false);
 
-        string path = $"Prefabs/{weaponObj.name}";
+        string path = $"Prefabs/Items/{weaponObj.name}";
         GameObject prefabObj = Resources.Load<GameObject>(path);
         Vector3 position = gameObject.transform.position + gameObject.transform.forward * 1 + new Vector3(0, 1.5f, 0);
         Quaternion rotation = Quaternion.Euler(185, gameObject.transform.rotation.eulerAngles.y + 90, 90);

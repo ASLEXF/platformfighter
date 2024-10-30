@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     PlayerAttacked playerAttacked;
     PlayerInteract playerInteract;
 
+    public int id;
     public Vector3 movePosition;
     public Vector3 playerVelocity;
 
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float GroundedOffset = -0.14f;
     [SerializeField] float GroundedRadius = 0.28f;
 
-    private float rotationSmoothTime = 0.5f;
+    [SerializeField] float rotationSmoothTime = 0.5f;
     private float _rotationVelocity;
     private float _rotateY;
 

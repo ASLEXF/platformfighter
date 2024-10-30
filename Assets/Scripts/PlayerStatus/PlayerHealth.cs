@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            playerStatusEffect.lifeStatus = LifeStatusEnum.DeadEmpty;
+            playerStatusEffect.lifeStatus = LifeStatusEnum.Dead;
             currentHealth = 0;
             if (playerController == null)
             {
@@ -52,9 +52,18 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void Respawn()
+    {
+        playerStatusEffect.lifeStatus = LifeStatusEnum.Alive;
+        currentHealth = maxHealth;
+        playerController.Respawn();
+        playerAttacked.Respawn();
+    }
+
     private IEnumerator respawn(float seconds)
     {
+        GameEvents.Instance.PlayerDie(playerController.id);
         yield return new WaitForSeconds(seconds);
-        //playerRespawn.Respawn();
+        GameManager.Instance.PlayerRespawn(playerController.id);
     }
 }
