@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\PlayerController\Controller.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\AnimationEvents.cs" />
+    <Compile Include="Assets\Scripts\Traps\FireTrap.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Item\Shield.cs" />
     <Compile Include="Assets\Scripts\Enums\ItemTypeEnums.cs" />

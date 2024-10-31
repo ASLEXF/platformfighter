@@ -9,6 +9,7 @@ public class PlayerAttacked : MonoBehaviour
 {
     CapsuleCollider capsuleCollider;
     PlayerController controller;
+    Rigidbody rb;
     Animator animator;
     PlayerHealth health;
     PlayerStatusEffect statusEffect;
@@ -60,7 +61,13 @@ public class PlayerAttacked : MonoBehaviour
         }
 
         if (statusEffect.lifeStatus == LifeStatusEnum.Alive)
-            animator.SetTrigger("Attacked");
+        {
+            if (damage == 1)
+                animator.SetTrigger("Attacked");
+            else
+                animator.SetTrigger("HeavyAttacked");
+        }
+            
         audioSource[0].Play();
     }
 
