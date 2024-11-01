@@ -8,47 +8,45 @@ public class FireTrap : MonoBehaviour
     [SerializeField] bool isActive = false;
     [SerializeField] int damage = 2;
 
-    [SerializeField] List<Collision> collisions = new List<Collision>();
+    [SerializeField] List<Collider> colliders = new List<Collider>();
+    [SerializeField] float force = 20.0f;
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (!isActive) return;
 
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        other.transform.parent.GetComponentInChildren<PlayerHealth>().TakeDamage(damage);
-    //    }
-    //}
-
-    private void OnTriggerEnter(Collider other)
+    private void FixedUpdate()
     {
-        if (other.CompareTag("Player"))
+        if (!isActive) return;
+        // squeeze out
+        for (int i = 0; i < colliders.Count; ++i)
         {
-
+            Rigidbody rb = colliders[i].gameObject.GetComponent<Rigidbody>();
+            Vector3 direction = colliders[i].transform.position - transform.position;
+            float distance = direction.magnitude;
+            rb.AddExplosionForce(force, transform.position, 2, 0.5f, ForceMode.Impulse);
+            colliders.RemoveAt(i);
+            i--;
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
-        if (!isActive || collisions.Contains(collision)) return;
+        if (!isActive || colliders.Contains(other)) return;
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             // deal damage
-            collision.transform.parent.GetComponentInChildren<PlayerHealth>().TakeDamage(damage);
-            // squeeze out
-            Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-            Vector3 direction = collision.transform.position - transform.position;
-            float distance = direction.magnitude;
-            rb.AddExplosionForce(10, transform.position, 2, 0, ForceMode.Impulse);
+            other.transform.parent.GetComponentInChildren<PlayerHealth>().TakeDamage(damage);
+            //// squeeze out
+            //Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
+            //Vector3 direction = other.transform.position - transform.position;
+            //float distance = direction.magnitude;
+            //rb.AddExplosionForce(force, transform.position, 2, 0.2f, ForceMode.Impulse);
 
-
-            collisions.Add(collision);
+            colliders.Add(other);
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        collisions.Remove(collision);
+        colliders.Remove(other);
     }
 }
