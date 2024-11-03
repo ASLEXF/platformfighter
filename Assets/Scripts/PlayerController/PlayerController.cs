@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     PlayerAttack playerAttack;
     PlayerAttacked playerAttacked;
     PlayerInteract playerInteract;
+    PlayerStatusEffect playerStatusEffect;
 
     public int id;
     public Vector3 movePosition;
@@ -48,12 +50,15 @@ public class PlayerController : MonoBehaviour
         playerAttacked = playerObj.GetComponent<PlayerAttacked>();
         playerInput = GetComponent<PlayerInput>();
         playerInteract = playerObj.transform.Find("Interact").GetComponent<PlayerInteract>();
+        playerStatusEffect = transform.parent.Find("Status").GetComponent<PlayerStatusEffect>();
     }
 
     private void Start()
     {
         movePosition = playerObj.transform.position;
         playerVelocity = new Vector3();
+
+        initialInputAction();
     }
 
     private void Update()
@@ -126,7 +131,7 @@ public class PlayerController : MonoBehaviour
     #region Input System
 
     PlayerInput playerInput;
-    //InputAction shield;
+    //InputAction move, run, attack, block, interact;
 
     Vector2 _rawInputMovement;
 
@@ -134,53 +139,90 @@ public class PlayerController : MonoBehaviour
 
     void initialInputAction()
     {
-        //shield = playerInput.actions.FindActionMap("Keyboard").FindAction("Shield");
-        //shield.canceled += OnShieldCanceled;
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        _rawInputMovement = context.ReadValue<Vector2>();
-        animator.SetBool("IsWalking", context.performed);
-    }
-
-    public void OnRun(InputAction.CallbackContext context)
-    {
-        isRunning = context.performed;
-    }
-
-    public void OnAttack(InputAction.CallbackContext context)
-    {
-        if (context.started)
+        foreach (var action in playerInput.actions.actionMaps[0].actions)  // Keyboard
         {
-            playerAttack.Attack();
+            action.started += handleAction;
+            action.performed += handleAction;
+            action.canceled += handleAction;
         }
     }
 
-    public void OnThrow(InputAction.CallbackContext context)
+    void handleAction(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
+
+        switch (context.action.name)
         {
-            playerAttack.ThrowWeapon();
+            case "Move":
+                _rawInputMovement = context.ReadValue<Vector2>();
+                animator.SetBool("IsWalking", context.performed);
+                break;
+            case "Run":
+                isRunning = context.performed;
+                break;
+            case "Attack":
+                playerAttack.Attack(context);
+                break;
+            case "Block":
+                playerAttack.Block(context);
+                break;
+            case "Throw":
+                playerAttack.ThrowWeapon(context);
+                break;
+            case "Interact":
+                playerInteract.Interact(context);
+                break;
         }
     }
 
-    public void OnShield(InputAction.CallbackContext context)
-    {
-        playerAttack.Block(context);
-    }
-
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            playerInteract.Interact();
-        }
-    }
-
-    //private void OnShieldCanceled(InputAction.CallbackContext context)
+    //public void OnMove(InputAction.CallbackContext context)
     //{
-    //    animator.SetBool("IsBlocking", false);
+    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
+
+    //    _rawInputMovement = context.ReadValue<Vector2>();
+    //    animator.SetBool("IsWalking", context.performed);
+    //}
+
+    //public void OnRun(InputAction.CallbackContext context)
+    //{
+    //    isRunning = context.performed;
+    //}
+
+    //public void OnAttack(InputAction.CallbackContext context)
+    //{
+    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
+
+    //    if (context.started)
+    //    {
+    //        playerAttack.Attack();
+    //    }
+    //}
+
+    //public void OnThrow(InputAction.CallbackContext context)
+    //{
+    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
+
+    //    if (context.started)
+    //    {
+    //        playerAttack.ThrowWeapon();
+    //    }
+    //}
+
+    //public void OnShield(InputAction.CallbackContext context)
+    //{
+    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
+
+    //    playerAttack.Block(context);
+    //}
+
+    //public void OnInteract(InputAction.CallbackContext context)
+    //{
+    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
+
+    //    if (context.started)
+    //    {
+    //        playerInteract.Interact();
+    //    }
     //}
 
     #endregion

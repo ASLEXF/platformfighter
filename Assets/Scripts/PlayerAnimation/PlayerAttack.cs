@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -22,22 +23,28 @@ public class PlayerAttack : MonoBehaviour
         handRSlot = transform.parent.GetComponent<QuickRefer>().handRSlot;
     }
 
-    public void Attack()
+    public void Attack(InputAction.CallbackContext context)
     {
         if (handRSlot.GetCurrentWeaponObj() == null) return;
 
-        animator.SetTrigger("Attack");
+        if (context.started)
+        {
+            animator.SetTrigger("Attack");
 
-        animator.SetBool("IsBlocking", false);
-        animator.ResetTrigger("BlockAttacked");
-        playerAttacked.isBlocking = false;
+            animator.SetBool("IsBlocking", false);
+            animator.ResetTrigger("BlockAttacked");
+            playerAttacked.isBlocking = false;
+        }
     }
 
-    public void ThrowWeapon()
+    public void ThrowWeapon(InputAction.CallbackContext context)
     {
         if (handRSlot.GetCurrentWeaponObj() == null) return;
 
-        animator.SetTrigger("Throw");
+        if (context.started)
+        {
+            animator.SetTrigger("Throw");
+        }
     }
 
     public bool isRightKeyDown;  // to resumeBlock() after hit or attack

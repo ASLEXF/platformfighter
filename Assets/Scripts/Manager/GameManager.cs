@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             playerObj.transform.SetParent(players);
             playerObjs.Add(playerObj);
 
-            PlayerController playerController = playerObj.transform.Find("Control Point").GetComponent<PlayerController>();
+            PlayerController playerController = playerObj.transform.Find("ControlPoint").GetComponent<PlayerController>();
             playerController.id = i + 1;
         }
     }

@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 6052758867930438884}
   - component: {fileID: 6052758867930438882}
   m_Layer: 0
-  m_Name: Control Point
+  m_Name: ControlPoint
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -580,7 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 4483f840bcdad26449738e02e5699eef, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:

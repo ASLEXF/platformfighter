@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shield",
+                    "name": "Block",
                     "type": "Button",
                     "id": "39567a3c-e321-4f8b-b70e-d50dd2e37224",
                     "expectedControlType": "Button",
@@ -134,7 +134,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shield",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
-        playerController = transform.parent.Find("Control Point").GetComponent<PlayerController>();
+        playerController = transform.parent.Find("ControlPoint").GetComponent<PlayerController>();
         playerAttacked = transform.parent.GetChild(0).GetComponent<PlayerAttacked>();
         playerRespawn = GetComponent<PlayerRespawn>();
         playerStatusEffect = GetComponent<PlayerStatusEffect>();

@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -78,8 +79,10 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    public void Interact()
+    public void Interact(InputAction.CallbackContext context)
     {
+        if (!context.started) return;
+
         if (currentItem != null)
         {
             animator.SetTrigger("Interact");
