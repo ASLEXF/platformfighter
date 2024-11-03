@@ -29,33 +29,7 @@ public class ConveyerBelt : MonoBehaviour
 
         if (rb != null)
         {
-            //if (other.gameObject.CompareTag("Player"))
-            //{
-            //    //PlayerController playerController = other.transform.parent.GetComponentInChildren<PlayerController>();
-            //    //if (playerController != null)
-            //    //{
-            //    //    Debug.Log($"{direction}");
-            //    //    playerController.movePosition += direction;
-            //    //}
-            //}
-            //else
-            //    rb.velocity = direction;
             rb.gameObject.transform.RotateAround(center.position, Vector3.up, rotationSpeed * Time.deltaTime);
-            //Vector3 relative = rb.position - center.position;
-            //relative.z = 0;
-
-            //Quaternion rotation;
-            //if (rotationSpeed > 0) {
-            //    rotation = Quaternion.Euler(0, Mathf.PI / 2, 0);
-            //}
-            //else
-            //{
-            //    rotation = Quaternion.Euler(0, Mathf.PI / 2 * -1, 0);
-            //}
-
-            //Vector3 targetVelocity = rotation * relative.normalized;
-            //Vector3 velocityChange = targetVelocity - rb.velocity;
-            //rb.AddForce(velocityChange, ForceMode.VelocityChange);
         }
     }
 }

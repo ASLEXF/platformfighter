@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     PlayerStatusEffect playerStatusEffect;
 
     public int id;
-    public Vector3 movePosition;
     public Vector3 playerVelocity;
 
     [SerializeField] float walkSpeed = 0.9f;
@@ -23,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float deceleration = 0.6f;
     [SerializeField] float acceleration = 4f;
     [SerializeField] float currentSpeed;
+    //Vector3 move = Vector3.zero;
 
     [SerializeField] GameObject playerObj;
     //[SerializeField] GameObject connetPoint;
@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        movePosition = playerObj.transform.position;
         playerVelocity = new Vector3();
 
         initialInputAction();
@@ -64,29 +63,31 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GroundedCheck();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            playerStatusEffect.Frozen = true;
     }
 
     private void FixedUpdate()
     {
-        Vector3 move = (transform.right * _rawInputMovement.x + transform.forward * _rawInputMovement.y).normalized;
+        //if (playerStatusEffect.Frozen || playerStatusEffect.Stunned)
+        //{
+        //    // stop the player
+        //    move = Vector3.zero;
+        //    deceleration = 100f;
+        //}
+        //else
+        //{
+            // move the player
+            Vector3 move = (transform.right * _rawInputMovement.x + transform.forward * _rawInputMovement.y).normalized;
+        //}
 
         if (move == Vector3.zero)
         {
-            //spring_1.connectedBody = null;
-            //spring_2.connectedBody = null;
-
-            //playerRb.velocity = Vector3.zero;
-
-            //transform.position = playerObj.transform.position;
-            //connetPoint.transform.position = transform.position;
-
             currentSpeed = Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.fixedDeltaTime);
         }
         else
         {
-            //spring_1.connectedBody = connectRb;
-            //spring_2.connectedBody = null;
-
             if (!isRunning)
             {
                 if (currentSpeed > walkSpeed)
@@ -101,8 +102,7 @@ public class PlayerController : MonoBehaviour
                 currentSpeed = Mathf.MoveTowards(currentSpeed, runSpeed, acceleration * Time.fixedDeltaTime);
             }
 
-            movePosition += move * currentSpeed * Time.deltaTime;
-
+            // turn the player
             _rotateY = playerObj.transform.eulerAngles.y;
             float rotation = Mathf.SmoothDampAngle(_rotateY, Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg, ref _rotationVelocity, rotationSmoothTime);
             playerObj.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
@@ -122,10 +122,6 @@ public class PlayerController : MonoBehaviour
             playerObj.transform.position.z);
         Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
             QueryTriggerInteraction.Ignore);
-        if (Grounded)
-        {
-            movePosition = playerObj.transform.position;
-        }
     }
 
     #region Input System
@@ -192,20 +188,15 @@ public class PlayerController : MonoBehaviour
     //{
     //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
 
-    //    if (context.started)
-    //    {
-    //        playerAttack.Attack();
-    //    }
+    //    playerAttack.Attack(context);
     //}
 
     //public void OnThrow(InputAction.CallbackContext context)
     //{
     //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
 
-    //    if (context.started)
-    //    {
-    //        playerAttack.ThrowWeapon();
-    //    }
+    //    playerAttack.ThrowWeapon(context);
+
     //}
 
     //public void OnShield(InputAction.CallbackContext context)
@@ -219,10 +210,7 @@ public class PlayerController : MonoBehaviour
     //{
     //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
 
-    //    if (context.started)
-    //    {
-    //        playerInteract.Interact();
-    //    }
+    //    playerInteract.Interact(context);
     //}
 
     #endregion

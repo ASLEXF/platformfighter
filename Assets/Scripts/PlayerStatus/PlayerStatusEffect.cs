@@ -33,6 +33,7 @@ public class PlayerStatusEffect : MonoBehaviour
         }
     }
 
+    Coroutine frozenCotoutine;
     public bool Frozen
     {
         get
@@ -43,11 +44,11 @@ public class PlayerStatusEffect : MonoBehaviour
         {
             if (value)
             {
-                StartCoroutine(frozen());
-                debuffEnums.Add(DebuffEnum.Frozen);
+                frozenCotoutine = StartCoroutine(frozen());
             }
             else
             {
+                StopCoroutine(frozenCotoutine);
                 debuffEnums.Remove(DebuffEnum.Frozen);
             }
 
