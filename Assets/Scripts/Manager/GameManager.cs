@@ -44,21 +44,11 @@ public class GameManager : MonoBehaviour
         {
             GameObject playerObj = Instantiate(characterPrefabs[i], spawnPoints.GetChild(i).position, spawnPoints.GetChild(i).rotation);
             playerObj.transform.SetParent(players);
+            playerObj.GetComponentInChildren<PlayerRespawn>().SpawnPoint = spawnPoints.GetChild(i);
             playerObjs.Add(playerObj);
 
             PlayerController playerController = playerObj.transform.Find("ControlPoint").GetComponent<PlayerController>();
             playerController.id = i + 1;
         }
-    }
-
-    public void PlayerRespawn(int playerID)
-    {
-        Assert.IsTrue(playerID >= 1 && playerID <= characters.Count);
-        int id = playerID - 1;
-        // reset transform
-        playerObjs[id].transform.GetChild(0).gameObject.transform.position = spawnPoints.transform.GetChild(id).transform.position;
-        playerObjs[id].transform.GetChild(0).gameObject.transform.rotation = spawnPoints.transform.GetChild(id).transform.rotation;
-        // reset status
-        playerObjs[id].transform.Find("Status").GetComponent<PlayerHealth>().Respawn();
     }
 }

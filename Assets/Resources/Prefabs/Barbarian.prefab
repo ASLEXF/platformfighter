@@ -551,7 +551,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  movePosition: {x: 0, y: 0, z: 0}
   playerVelocity: {x: 0, y: 0, z: 0}
   walkSpeed: 0.9
   runSpeed: 5
@@ -917,6 +916,7 @@ GameObject:
   - component: {fileID: 6052758869500388505}
   - component: {fileID: 6052758869500388518}
   - component: {fileID: 3833598190699267474}
+  - component: {fileID: 4567227255649173729}
   m_Layer: 0
   m_Name: Status
   m_TagString: Untagged
@@ -969,6 +969,19 @@ MonoBehaviour:
   lifeStatus: 0
   debuffEnums: 
   buffEnums: 
+--- !u!114 &4567227255649173729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6052758869500388504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6673fcade1460468eebbbb924e994d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnPoint: {fileID: 0}
 --- !u!1001 &2533217618347627927
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1661,6 +1674,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c5d77db48fcf5b4f8fd2e22f88ba8f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4651935521101165740}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1c5d77db48fcf5b4f8fd2e22f88ba8f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6783869715481570313}
     - targetCorrespondingSourceObject: {fileID: 360375151596564303, guid: 1c5d77db48fcf5b4f8fd2e22f88ba8f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3833598191346041726}
@@ -1822,6 +1838,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBlocking: 0
+--- !u!114 &6783869715481570313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3451628483578570950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46513a3c0d5e08b49be3e422ffd9c5b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: -10
 --- !u!1 &3808877648143884585 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1728280593283003582, guid: 1c5d77db48fcf5b4f8fd2e22f88ba8f0, type: 3}

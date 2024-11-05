@@ -5,18 +5,24 @@ using UnityEngine;
 public class PlayerRespawn : MonoBehaviour
 {
     PlayerController controller;
+    PlayerHealth playerHealth;
+    PlayerAttacked playerAttacked;
 
-    [SerializeField] GameObject SpawnPoint;
+    [SerializeField] public Transform SpawnPoint;
 
     private void Awake()
     {
-        controller = transform.parent.GetComponent<PlayerController>();
+        controller = transform.parent.Find("ControlPoint").GetComponent<PlayerController>();
+        playerHealth = GetComponent<PlayerHealth>();
+        playerAttacked = transform.parent.GetChild(0).GetComponent<PlayerAttacked>();
     }
 
     public void Respawn()
     {
-        controller.transform.position = SpawnPoint.transform.position;
-        controller.transform.rotation = SpawnPoint.transform.rotation;
-        controller.transform.localScale = SpawnPoint.transform.localScale;
+        transform.parent.GetChild(0).transform.position = SpawnPoint.position;
+        transform.parent.GetChild(0).transform.rotation = SpawnPoint.rotation;
+        controller.Respawn();
+        playerHealth.Respawn();
+        playerAttacked.Respawn();
     }
 }

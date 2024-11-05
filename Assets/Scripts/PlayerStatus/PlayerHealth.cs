@@ -56,14 +56,12 @@ public class PlayerHealth : MonoBehaviour
     {
         playerStatusEffect.lifeStatus = LifeStatusEnum.Alive;
         currentHealth = maxHealth;
-        playerController.Respawn();
-        playerAttacked.Respawn();
     }
 
     private IEnumerator respawn(float seconds)
     {
         GameEvents.Instance.PlayerDie(playerController.id);
         yield return new WaitForSeconds(seconds);
-        GameManager.Instance.PlayerRespawn(playerController.id);
+        playerRespawn.Respawn();
     }
 }

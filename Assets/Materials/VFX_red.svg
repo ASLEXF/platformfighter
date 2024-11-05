@@ -1,8 +1,0 @@
-<svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    version="1.1"
-    viewBox="0 0 200 200">
-    <g fill="#ff0000" stroke="#000000" stroke-width="2">
-        <path d="M100,100 L110,90 L115,98 L120,90 L135,85 L125,75 L130,60 L112,70 L110,62 L102,70 L95,60 L95,60 L90,75 L75,75  L82,85 L75,95 L90,91 Z" />
-    </g>
-</svg>

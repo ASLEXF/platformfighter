@@ -6,17 +6,19 @@ public class PlayerHeightChecker : MonoBehaviour
 {
     [SerializeField] float height = -10.0f;
     PlayerHealth playerHealth;
+    PlayerRespawn playerRespawn;
 
     private void Awake()
     {
         playerHealth = GetComponent<PlayerHealth>();
+        playerRespawn = GetComponentInChildren<PlayerRespawn>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (transform.position.y < height)
         {
-            playerHealth.TakeDamage(24);
+            playerRespawn.Respawn();
         }
     }
 }

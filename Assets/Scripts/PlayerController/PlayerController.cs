@@ -22,15 +22,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float deceleration = 0.6f;
     [SerializeField] float acceleration = 4f;
     [SerializeField] float currentSpeed;
-    //Vector3 move = Vector3.zero;
+    Vector3 move = Vector3.zero;
 
     [SerializeField] GameObject playerObj;
-    //[SerializeField] GameObject connetPoint;
-
     [SerializeField] Rigidbody playerRb;
-    //[SerializeField] Rigidbody connectRb;
-    //[SerializeField] SpringJoint spring_1;
-    //[SerializeField] SpringJoint spring_2;
 
     [SerializeField] bool Grounded = false;
     [SerializeField] LayerMask GroundLayers;
@@ -70,17 +65,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (playerStatusEffect.Frozen || playerStatusEffect.Stunned)
-        //{
-        //    // stop the player
-        //    move = Vector3.zero;
-        //    deceleration = 100f;
-        //}
-        //else
-        //{
-            // move the player
-            Vector3 move = (transform.right * _rawInputMovement.x + transform.forward * _rawInputMovement.y).normalized;
-        //}
+        if (playerStatusEffect.Frozen || playerStatusEffect.Stunned)
+        {
+            playerRb.velocity = Vector3.zero;
+            return;
+        }
+        move = (transform.right * _rawInputMovement.x + transform.forward * _rawInputMovement.y).normalized;
 
         if (move == Vector3.zero)
         {
@@ -220,13 +210,14 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
         playerInput.enabled = true;
-        playerRb.constraints = RigidbodyConstraints.None;
+        playerRb.velocity = Vector3.zero;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
     public void Die()
     {
         playerInput.enabled = false;
-        playerRb.constraints = RigidbodyConstraints.FreezePositionY;
+        playerRb.constraints = RigidbodyConstraints.None;
     }
 
     #endregion

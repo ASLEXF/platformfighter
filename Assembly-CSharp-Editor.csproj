@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\StarterAssets\Editor\ThirdPersonStarterAssetsDeployMenu.cs" />
     <Compile Include="Assets\StarterAssets\Editor\StarterAssetsDeployMenu.cs" />
+    <Compile Include="Assets\Editor\EditorDebugger.cs" />
     <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
   </ItemGroup>
   <ItemGroup>
