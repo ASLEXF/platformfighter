@@ -54,6 +54,11 @@ public class IceTrap : MonoBehaviour, ITrap
             Physics.IgnoreCollision(iceObj.GetComponent<CapsuleCollider>(), collider);
             iceObjs.Add(iceObj);
         }
+        if (colliders.Count == 0)
+        {
+            GameObject iceObj = Instantiate(ice, new Vector3(transform.position.x, 1.5f, transform.position.z), Quaternion.Euler(-90, 0, 0));
+            iceObjs.Add(iceObj);
+        }
         yield return new WaitForSeconds(time);
         isActive = false;
         foreach (var iceObj in iceObjs)

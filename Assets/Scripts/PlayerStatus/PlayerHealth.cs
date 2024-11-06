@@ -29,6 +29,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage = 1)
     {
+        if (playerStatusEffect.lifeStatus == LifeStatusEnum.Dead) return;
+
         int resultHealth = currentHealth - damage;
         if (resultHealth > 0)
         {

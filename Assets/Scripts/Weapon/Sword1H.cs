@@ -44,7 +44,7 @@ public class Sword1H : MonoBehaviour, IWeapon
     private void DrawContactPoint(Collider other)
     {
         Vector3 contactPoint = other.bounds.ClosestPoint(transform.position);
-        Debug.Log($"接触点: {contactPoint}");
+        //Debug.Log($"接触点: {contactPoint}");
         Debug.DrawLine(contactPoint, contactPoint + Vector3.up * 2f, Color.red, 3f);
     }
 

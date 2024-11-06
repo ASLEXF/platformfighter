@@ -35,6 +35,7 @@ public class GameEvents : MonoBehaviour
             case 1: OnPlayer1Die?.Invoke(); break;
             case 2: OnPlayer2Die?.Invoke(); break;
         }
+        Debug.Log($"Player {id} die!");
     }
 
     #endregion

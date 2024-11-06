@@ -46,7 +46,7 @@ public class Axe1H : MonoBehaviour, IWeapon
     {
         if (other.CompareTag("Platform")) return;
         Vector3 contactPoint = other.bounds.ClosestPoint(transform.position);
-        Debug.Log($"接触点: {contactPoint}");
+        //Debug.Log($"接触点: {contactPoint}");
         Debug.DrawLine(contactPoint, contactPoint + Vector3.up * 2f, Color.red, 3f);
     }
 
