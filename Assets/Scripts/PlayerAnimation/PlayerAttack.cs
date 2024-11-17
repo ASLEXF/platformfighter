@@ -1,3 +1,5 @@
+# nullable enable
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -51,10 +53,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void Block(InputAction.CallbackContext context)
     {
-        if (handLSlot.GetCurrentItemObj() == null) return;
+        if (handLSlot.GetCurrentItemObj()?.CompareTag("Item") ?? true) return;
 
         if (context.started)
         {
+            animator.ResetTrigger("Attack");
             animator.SetTrigger("Block");
             isRightKeyDown = true;
         }

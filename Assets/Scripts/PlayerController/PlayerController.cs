@@ -16,17 +16,23 @@ public class PlayerController : MonoBehaviour
 
     public int id;
     public Vector3 playerVelocity;
+    float _verticalVelocity;
 
-    [SerializeField] float walkSpeed = 0.9f;
-    [SerializeField] float runSpeed = 5f;
+    [Space(10)]
+    [SerializeField] float walkSpeed = 3.0f;
+    [SerializeField] float runSpeed = 8.0f;
     [SerializeField] float deceleration = 0.6f;
     [SerializeField] float acceleration = 4f;
     [SerializeField] float currentSpeed;
     Vector3 move = Vector3.zero;
 
+    [Space(10)]
     [SerializeField] GameObject playerObj;
     [SerializeField] Rigidbody playerRb;
 
+    [Space(10)]
+    [SerializeField] float gravity = -19.0f;
+    [SerializeField] float JumpHeight = 4.0f;
     [SerializeField] bool Grounded = false;
     [SerializeField] LayerMask GroundLayers;
     [SerializeField] float GroundedOffset = -0.14f;
@@ -58,9 +64,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GroundedCheck();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            playerStatusEffect.Frozen = true;
     }
 
     private void FixedUpdate()
@@ -78,7 +81,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (!isRunning)
+            if (!_isRunning)
             {
                 if (currentSpeed > walkSpeed)
                     currentSpeed = Mathf.MoveTowards(currentSpeed, walkSpeed, acceleration * Time.fixedDeltaTime);
@@ -99,7 +102,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Grounded)
-            playerRb.velocity = playerVelocity + move * currentSpeed;
+            playerRb.velocity = playerVelocity + move * currentSpeed + new Vector3(0.0f, _verticalVelocity, 0.0f);
+        Debug.Log($"{playerRb.velocity}");
             //playerRb.AddForce(force);
             //playerRb.MovePosition(movePosition);
 
@@ -112,6 +116,12 @@ public class PlayerController : MonoBehaviour
             playerObj.transform.position.z);
         Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
             QueryTriggerInteraction.Ignore);
+        animator.SetBool("IsGrounded", Grounded);
+        if (Grounded && _verticalVelocity < 0.0f)
+        {
+            _verticalVelocity = -2f;
+        }
+        _verticalVelocity += gravity * Time.deltaTime;
     }
 
     #region Input System
@@ -121,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 _rawInputMovement;
 
-    bool isRunning = false;
+    bool _isRunning = false;
 
     void initialInputAction()
     {
@@ -144,10 +154,23 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("IsWalking", context.performed);
                 break;
             case "Run":
-                isRunning = context.performed;
+                _isRunning = context.performed;
+                break;
+            case "Jump":
+                if (Grounded && context.canceled)
+                {
+                    _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * gravity);
+                    animator.SetTrigger("Jump");
+                }
                 break;
             case "Attack":
                 playerAttack.Attack(context);
+                break;
+            case "Skill":
+                if (transform.parent.GetChild(0).name == "Knight")
+                    playerAttack.Block(context);
+                else if (transform.parent.GetChild(0).name == "Barbarian")
+                    playerAttack.ThrowWeapon(context);
                 break;
             case "Block":
                 playerAttack.Block(context);
@@ -161,48 +184,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //public void OnMove(InputAction.CallbackContext context)
-    //{
-    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
-
-    //    _rawInputMovement = context.ReadValue<Vector2>();
-    //    animator.SetBool("IsWalking", context.performed);
-    //}
-
-    //public void OnRun(InputAction.CallbackContext context)
-    //{
-    //    isRunning = context.performed;
-    //}
-
-    //public void OnAttack(InputAction.CallbackContext context)
-    //{
-    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
-
-    //    playerAttack.Attack(context);
-    //}
-
-    //public void OnThrow(InputAction.CallbackContext context)
-    //{
-    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
-
-    //    playerAttack.ThrowWeapon(context);
-
-    //}
-
-    //public void OnShield(InputAction.CallbackContext context)
-    //{
-    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
-
-    //    playerAttack.Block(context);
-    //}
-
-    //public void OnInteract(InputAction.CallbackContext context)
-    //{
-    //    if (playerStatusEffect.Frozen || playerStatusEffect.Stunned) return;
-
-    //    playerInteract.Interact(context);
-    //}
-
     #endregion
 
     #region Die & Respawn
@@ -214,10 +195,11 @@ public class PlayerController : MonoBehaviour
         playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    public void Die()
+    public void Die(int damage)
     {
         playerInput.enabled = false;
-        playerRb.constraints = RigidbodyConstraints.None;
+        if (damage > 1)
+            playerRb.constraints = RigidbodyConstraints.None;
     }
 
     #endregion

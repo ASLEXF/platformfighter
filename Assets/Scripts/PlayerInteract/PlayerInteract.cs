@@ -85,15 +85,13 @@ public class PlayerInteract : MonoBehaviour
 
         if (currentItem != null)
         {
+            // pick up item
             animator.SetTrigger("Interact");
             switch(currentItem.itemType)
             {
                 case ItemType.comsumable:
-                {
                     break;
-                }
                 case ItemType.knightWeapon:
-                {
                     if (charactorObj.name == "Knight")
                     {
                         if(handRSlot.AddWeaponKnight(currentItem.itemName))
@@ -102,12 +100,7 @@ public class PlayerInteract : MonoBehaviour
                             dropItems.Remove(currentItem);
                         }
                     }
-
-                    break;
-                }
-                case ItemType.knightItem:
-                {
-                    if (charactorObj.name == "Knight")
+                    else if (charactorObj.name == "Barbarian")
                     {
                         if(handLSlot.AddItem(currentItem.itemName))
                         {
@@ -117,9 +110,26 @@ public class PlayerInteract : MonoBehaviour
                     }
 
                     break;
-                }
+                case ItemType.knightItem:
+                    if (charactorObj.name == "Knight")
+                    {
+                        if(handLSlot.AddItem(currentItem.itemName))
+                        {
+                            Destroy(currentItem.gameObject);
+                            dropItems.Remove(currentItem);
+                        }
+                    }
+                    else if (charactorObj.name == "Barbarian")
+                    {
+                        if (handLSlot.AddItem(currentItem.itemName))
+                        {
+                            Destroy(currentItem.gameObject);
+                            dropItems.Remove(currentItem);
+                        }
+                    }
+
+                    break;
                 case ItemType.barbarianWeapon:
-                {
                     if (charactorObj.name == "Barbarian")
                     {
                         if (handRSlot.AddWeaponBarbarian(currentItem.itemName))
@@ -128,21 +138,26 @@ public class PlayerInteract : MonoBehaviour
                             dropItems.Remove(currentItem);
                         }
                     }
+                    else if (charactorObj.name == "Knight")
+                    {
+                        if (handLSlot.AddItem(currentItem.itemName))
+                        {
+                            Destroy(currentItem.gameObject);
+                            dropItems.Remove(currentItem);
+                        }
+                    }
 
                     break;
-                }
                 default:
-                {
                     Debug.LogWarning($"unhandled item '{currentItem}'");
                     break;
-                }
             }
         }
-    }
-
-    void dropCurrentWeapon()
-    {
-
+        else if (handLSlot.GetCurrentItemObj()?.CompareTag("Item") ?? false)
+        {
+            // drop item
+            handLSlot.DropCurrentItem();
+        }
     }
 
     private void OnTriggerEnter(Collider collider)

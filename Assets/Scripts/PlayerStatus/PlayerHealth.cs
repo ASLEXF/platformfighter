@@ -47,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                playerController.Die();
+                playerController.Die(damage);
             }
             playerAttacked.Die();
             StartCoroutine(respawn(3));

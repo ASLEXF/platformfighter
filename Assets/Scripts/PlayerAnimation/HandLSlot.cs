@@ -40,7 +40,8 @@ public class HandLSlot : MonoBehaviour
         GameObject? currentItem = GetCurrentItemObj();
         if (currentItem == null) return;
 
-        string path = $"Prefabs/{currentItem.name}";
+        currentItem.SetActive(false);
+        string path = $"Prefabs/Items/{currentItem.name}";
         GameObject prefanObj = Resources.Load<GameObject>(path);
         Vector3 position = playerModel.transform.position + playerModel.transform.forward * 1 + new Vector3(0, 1.5f, 0);
         Quaternion rotation = Quaternion.Euler(5, playerModel.transform.rotation.eulerAngles.y + 90, 90);

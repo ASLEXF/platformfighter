@@ -19,9 +19,25 @@ public class AnimationEvents : MonoBehaviour
         playerAttacked = GetComponent<PlayerAttacked>();
     }
 
-    private void startAttacking() => animator.SetBool("IsAttacking", true);
+    Coroutine attackingCoroutine;
 
-    private void stopAttacking() => animator.SetBool("IsAttacking", false);
+    private void startAttacking()
+    {
+        animator.SetBool("IsAttacking", true);
+        attackingCoroutine = StartCoroutine(attacking());  // handle dead when attacking
+    }
+
+    IEnumerator attacking()
+    {
+        yield return new WaitForSeconds(1.2f);
+        animator.SetBool("IsAttacking", false);
+    }
+
+    private void stopAttacking()
+    {
+        StopCoroutine(attackingCoroutine);
+        animator.SetBool("IsAttacking", false);
+    }
 
     private void startThrowing() => animator.SetBool("IsThrowing", true);
 
@@ -73,6 +89,8 @@ public class AnimationEvents : MonoBehaviour
 
     private void resumeBlock()
     {
+        if (animator.GetBool("IsBlocking")) return;
+
         if (playerAttack.isRightKeyDown)
         {
             animator.SetTrigger("Block");

@@ -16,6 +16,7 @@ public class PlayerAttacked : MonoBehaviour
     HandLSlot handLSlot;
     AudioSource[] audioSource;
     Transform VFX;
+    ParticleSystem hit;
 
     public bool isBlocking = false;
 
@@ -28,7 +29,8 @@ public class PlayerAttacked : MonoBehaviour
         statusEffect = transform.parent.GetComponentInChildren<PlayerStatusEffect>();
         handLSlot = transform.parent.GetComponent<QuickRefer>().handLSlot;
         audioSource = transform.parent.Find("Audio").GetComponents<AudioSource>();
-        VFX = transform.parent.Find("VFX");
+        VFX = transform.Find("VFX");
+        hit = VFX.GetChild(0).GetComponent<ParticleSystem>();
     }
 
     public void GetAttacked(int damage, float force, Collider collider, Vector3 point = new Vector3())
@@ -50,7 +52,7 @@ public class PlayerAttacked : MonoBehaviour
         health.TakeDamage(damage);
 
         Vector3 position = transform.position - collider.bounds.center;
-        position.z = 0;  // prevent wrong displacements
+        position.y = 0;  // prevent wrong displacements
         knockbackPos += position.normalized * force;  // add all forces if get attacked at the same time
 
         if (isBlocking)
@@ -69,6 +71,8 @@ public class PlayerAttacked : MonoBehaviour
         }
             
         audioSource[0].Play();
+        hit.transform.rotation = Quaternion.Euler(0.0f, Mathf.Atan2(position.x, position.z) * Mathf.Rad2Deg, 0.0f);
+        hit.Play();
     }
 
     public void Blocked(int damage, Vector3 point)
@@ -96,6 +100,8 @@ public class PlayerAttacked : MonoBehaviour
             if (statusEffect.lifeStatus == LifeStatusEnum.Alive)
                 animator.SetTrigger("HeavyAttacked");
             audioSource[0].Play();
+            hit.transform.rotation = Quaternion.Euler(0.0f, Mathf.Atan2(position.x, position.z) * Mathf.Rad2Deg, 0.0f);
+            hit.Play();
         }
     }
 

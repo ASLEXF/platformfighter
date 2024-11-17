@@ -44,7 +44,7 @@ public class FireTrap : MonoBehaviour, ITrap
 
     private void OnTriggerStay(Collider other)
     {
-        if (!isActive) return;
+        if (!isActive || colliders.Contains(other)) return;
 
         if (other.gameObject.CompareTag("Player"))
         {
@@ -91,15 +91,17 @@ public class FireTrap : MonoBehaviour, ITrap
 
     void sprayStart()
     {
-        isActive = true;
         VE.Play();
         sprayParticle.Play();
+        new WaitForSeconds(0.2f);
+        isActive = true;
     }
 
     void sprayEnd()
     {
         isActive = false;
         VE.Stop();
+        colliders.Clear();
     }
 
     void particleEnd()
