@@ -7,12 +7,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteract : MonoBehaviour
 {
-    Animator animator;
-    GameObject charactorObj;
-    HandLSlot handLSlot;
-    HandRSlot handRSlot;
+    Animator animator = null!;
+    GameObject charactorObj = null!;
+    HandLSlot handLSlot = null!;
+    HandRSlot handRSlot = null!;
 
-    [SerializeField] List<DropItem> dropItems;
+    [SerializeField] List<DropItem> dropItems = null!;
     [SerializeField] DropItem? currentItem;
 
     bool isDropItemsUpdated = true;

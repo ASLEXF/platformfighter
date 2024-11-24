@@ -41,7 +41,11 @@ public class AnimationEvents : MonoBehaviour
 
     private void startThrowing() => animator.SetBool("IsThrowing", true);
 
-    private void stopThrowing() => animator.SetBool("IsThrowing", false);
+    private void stopThrowing()
+    {
+        animator.SetBool("IsThrowing", false);
+        handRSlot.TryGetLWeapon();
+    }
 
 
     private void startWeaponOneStrike()
@@ -80,7 +84,7 @@ public class AnimationEvents : MonoBehaviour
 
         DropItem dropItem = projectile.GetComponent<DropItem>();
         dropItem.name = weaponObj.name;
-        dropItem.itemType = ItemType.knightWeapon;  // TODO
+        dropItem.itemType = ItemType.barbarianWeapon;
         dropItem.isThrown = true;
 
         dropItem.collisionObjs.Add(gameObject);

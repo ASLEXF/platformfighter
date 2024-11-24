@@ -2,18 +2,20 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
-using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.InputSystem.HID;
-using static UnityEngine.UI.Image;
+using UnityEngine.SceneManagement;
 
 public class ItemManager : MonoBehaviour, IItemManager
 {
-    [SerializeField] GameObject platform;
+    private static ItemManager instance = null!;
+
+    public static ItemManager Instance
+    {
+        get { return instance; }
+    }
+
+    [SerializeField] GameObject platform = null!;
     [SerializeField] List<GameObject> prefabs = new List<GameObject>();
     [SerializeField] float height = 20.0f;
     [SerializeField] string prefabPath = "Prefabs/Items";
@@ -21,11 +23,22 @@ public class ItemManager : MonoBehaviour, IItemManager
 
     private void Awake()
     {
+        if (instance is null)
+            instance = this;
+
         prefabs = new List<GameObject>(Resources.LoadAll<GameObject>(prefabPath));
     }
 
-    void Start()
+    public void Initialize()
     {
+        Scene scene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
+        GameObject[] rootObjects = scene.GetRootGameObjects();
+        foreach (GameObject obj in rootObjects)
+        {
+            if (obj.name == "Environment")
+                platform = obj.transform.Find("Platform").gameObject;
+        }
+
         GenerateItems(number);
     }
 

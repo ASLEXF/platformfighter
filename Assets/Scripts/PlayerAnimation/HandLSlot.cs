@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class HandLSlot : MonoBehaviour
 {
-    GameObject playerModel;
+    GameObject playerModel = null!;
 
     private void Awake()
     {
@@ -72,6 +72,19 @@ public class HandLSlot : MonoBehaviour
             }
         }
         
+        return null;
+    }
+
+    public IWeapon? GetCurrentWeapon()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                return transform.GetChild(i).gameObject.GetComponent<IWeapon>();
+            }
+        }
+
         return null;
     }
 }

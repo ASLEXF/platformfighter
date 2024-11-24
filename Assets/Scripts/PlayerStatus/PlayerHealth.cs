@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerRespawn playerRespawn;
     PlayerStatusEffect playerStatusEffect;
 
-    [SerializeField] int maxHealth = 3;
+    [SerializeField] public int maxHealth = 3;
     [SerializeField] public int currentHealth;
 
     public bool isInvincible = false;

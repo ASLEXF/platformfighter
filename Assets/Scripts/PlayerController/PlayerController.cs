@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
         if (Grounded)
             playerRb.velocity = playerVelocity + move * currentSpeed + new Vector3(0.0f, _verticalVelocity, 0.0f);
-        Debug.Log($"{playerRb.velocity}");
+        //Debug.Log($"{playerRb.velocity}");
             //playerRb.AddForce(force);
             //playerRb.MovePosition(movePosition);
 

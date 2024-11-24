@@ -10,11 +10,11 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerAttack : MonoBehaviour
 {
-    Animator animator;
-    GameObject playerObj;
-    PlayerAttacked playerAttacked;
-    HandLSlot handLSlot;
-    HandRSlot handRSlot;
+    Animator animator = null!;
+    GameObject playerObj = null!;
+    PlayerAttacked playerAttacked = null!;
+    HandLSlot handLSlot = null!;
+    HandRSlot handRSlot = null!;
 
     private void Awake()
     {

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class HandRSlot : MonoBehaviour
 {
-    GameObject playerModel;
-    HandLSlot handLSlot;
+    GameObject playerModel = null!;
+    HandLSlot handLSlot = null!;
 
     private void Awake()
     {
@@ -88,5 +88,13 @@ public class HandRSlot : MonoBehaviour
         }
         //Debug.LogWarning("weapon not found");
         return null;
+    }
+
+    public void TryGetLWeapon()
+    {
+        GameObject? weaponL = handLSlot.GetCurrentItemObj();
+        if (weaponL is null) return;
+        if (AddWeaponBarbarian(weaponL.name))
+            weaponL.SetActive(false);
     }
 }
