@@ -15,6 +15,13 @@ public class GameEvents : MonoBehaviour
         instance = this;
     }
 
+    #region
+
+    public event Action OnRebindSucceed;
+    public void RebindSucceed() => OnRebindSucceed?.Invoke();
+
+    #endregion
+
     #region Item
 
     public event Action OnItemDropped;
