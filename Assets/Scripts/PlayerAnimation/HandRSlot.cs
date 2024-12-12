@@ -9,7 +9,7 @@ public class HandRSlot : MonoBehaviour
     GameObject playerModel = null!;
     HandLSlot handLSlot = null!;
 
-    private void Awake()
+    public void Initialize()
     {
         playerModel = transform.GetComponentInParent<QuickRefer>().gameObject.transform.GetChild(0).gameObject;
         handLSlot = transform.GetComponentInParent<QuickRefer>().handLSlot;

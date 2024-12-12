@@ -16,8 +16,8 @@ public class RebindManager : MonoBehaviour
         get { return instance; }
     }
 
-    private PlayerL playerL;
-    private PlayerR playerR;
+    public PlayerL playerL;
+    public PlayerR playerR;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private GameObject arrowBox;
 
@@ -30,12 +30,12 @@ public class RebindManager : MonoBehaviour
 
         playerL = new PlayerL();
         playerR = new PlayerR();
-        canvasGroup = GameObject.Find("Canvas").GetComponent<CanvasGroup>();
-        arrowBox = GameObject.Find("ArrowBox").gameObject;
     }
 
-    private void Start()
+    public void Initialize()
     {
+        canvasGroup = GameObject.Find("Canvas").GetComponent<CanvasGroup>();
+        arrowBox = GameObject.Find("ArrowBox").gameObject;
         arrowBox.SetActive(false);
     }
 
@@ -92,12 +92,15 @@ public class RebindManager : MonoBehaviour
 
                         rebindingOperation = inputAction.PerformInteractiveRebinding(j)
                         .WithExpectedControlType("Button")
-                        .WithControlsExcluding("<Keyboard>/escape")
                         .OnPotentialMatch(
                             operation =>
                             {
                                 var control = operation.selectedControl;
-                                if (control == null || control.path == "/Keyboard/anyKey")
+                                if (
+                                    control == null 
+                                    || control.path == "/Keyboard/escape"
+                                    || control.path == "/Keyboard/backspace"
+                                )
                                     operation.Cancel();
                             }
                         )
@@ -125,12 +128,15 @@ public class RebindManager : MonoBehaviour
 
         rebindingOperation = inputAction.PerformInteractiveRebinding()
             .WithExpectedControlType("Button")
-            .WithControlsExcluding("<Keyboard>/escape")
             .OnPotentialMatch(
                 operation =>
                 {
                     var control = operation.selectedControl;
-                    if (control == null || control.path == "/Keyboard/anyKey")
+                    if (
+                        control == null
+                        || control.path == "/Keyboard/escape"
+                        || control.path == "/Keyboard/backspace"
+                    )
                         operation.Cancel();
                 }
             )

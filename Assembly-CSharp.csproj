@@ -72,7 +72,6 @@
     <Compile Include="Assets\Scripts\Enums\PlayerStatusEnums.cs" />
     <Compile Include="Assets\Scripts\Weapon\IgnoreWeaponCollision.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerStatusEffect.cs" />
-    <Compile Include="Assets\Scripts\PlayerAnimation\PlayerInterface.cs" />
     <Compile Include="Assets\Scripts\Manager\RebindManager.cs" />
     <Compile Include="Assets\Scripts\Weapon\Axe1H.cs" />
     <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Readme.cs" />
@@ -87,8 +86,8 @@
     <Compile Include="Assets\Scripts\PlayerAnimation\HandRSlot.cs" />
     <Compile Include="Assets\Scripts\PlayerInteract\PlayerInteract.cs" />
     <Compile Include="Assets\Scripts\PlayerController\PlayerHeightChecker.cs" />
-    <Compile Include="Assets\Input\PlayerL.cs" />
     <Compile Include="Assets\Scripts\Tools\StringHandler.cs" />
+    <Compile Include="Assets\Input\PlayerL.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerAttack.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\Scripts\PlayerController\QuickRefer.cs" />
@@ -105,6 +104,7 @@
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
     <Compile Include="Assets\Scripts\PlayerController\IgnoreCollision.cs" />
     <Compile Include="Assets\Input\Player.cs" />
+    <Compile Include="Assets\Scripts\Manager\AudioManager.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\AnimationEvents.cs" />
     <Compile Include="Assets\Scripts\Traps\FireTrap.cs" />

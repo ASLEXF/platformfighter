@@ -21,6 +21,10 @@ public class PlayerInteract : MonoBehaviour
     {
         animator = transform.parent.GetComponent<Animator>();
         charactorObj = transform.parent.gameObject;
+    }
+
+    public void Initialize()
+    {
         handLSlot = GetComponentInParent<QuickRefer>().handLSlot;
         handRSlot = GetComponentInParent<QuickRefer>().handRSlot;
     }
@@ -92,7 +96,7 @@ public class PlayerInteract : MonoBehaviour
                 case ItemType.comsumable:
                     break;
                 case ItemType.knightWeapon:
-                    if (charactorObj.name == "Knight")
+                    if (charactorObj.name.StartsWith("Knight"))
                     {
                         if(handRSlot.AddWeaponKnight(currentItem.itemName))
                         {
@@ -100,7 +104,7 @@ public class PlayerInteract : MonoBehaviour
                             dropItems.Remove(currentItem);
                         }
                     }
-                    else if (charactorObj.name == "Barbarian")
+                    else if (charactorObj.name.StartsWith("Barbarian"))
                     {
                         if(handLSlot.AddItem(currentItem.itemName))
                         {
@@ -111,7 +115,7 @@ public class PlayerInteract : MonoBehaviour
 
                     break;
                 case ItemType.knightItem:
-                    if (charactorObj.name == "Knight")
+                    if (charactorObj.name.StartsWith("Knight"))
                     {
                         if(handLSlot.AddItem(currentItem.itemName))
                         {
@@ -119,7 +123,7 @@ public class PlayerInteract : MonoBehaviour
                             dropItems.Remove(currentItem);
                         }
                     }
-                    else if (charactorObj.name == "Barbarian")
+                    else if (charactorObj.name.StartsWith("Barbarian"))
                     {
                         if (handLSlot.AddItem(currentItem.itemName))
                         {
@@ -130,7 +134,7 @@ public class PlayerInteract : MonoBehaviour
 
                     break;
                 case ItemType.barbarianWeapon:
-                    if (charactorObj.name == "Barbarian")
+                    if (charactorObj.name.StartsWith("Barbarian"))
                     {
                         if (handRSlot.AddWeaponBarbarian(currentItem.itemName))
                         {
@@ -138,7 +142,7 @@ public class PlayerInteract : MonoBehaviour
                             dropItems.Remove(currentItem);
                         }
                     }
-                    else if (charactorObj.name == "Knight")
+                    else if (charactorObj.name.StartsWith("Knight"))
                     {
                         if (handLSlot.AddItem(currentItem.itemName))
                         {

@@ -14,3 +14,9 @@ public interface IPlayer
 {
     public PlayerAttacked GetPlayerAttacked();
 }
+
+public interface IPlayerInput
+{
+    public PlayerL GetPlayerL();
+    public PlayerR GetPlayerR();
+}

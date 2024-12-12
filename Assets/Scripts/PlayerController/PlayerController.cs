@@ -9,12 +9,15 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     Animator animator;
+    QuickRefer quickRefer;
     PlayerAttack playerAttack;
     PlayerAttacked playerAttacked;
     PlayerInteract playerInteract;
     PlayerStatusEffect playerStatusEffect;
+    AnimationEvents animationEvents;
 
-    public int id;
+    [Space(10)]
+    [SerializeField] public int id;
     public Vector3 playerVelocity;
     float _verticalVelocity;
 
@@ -38,27 +41,38 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float GroundedOffset = -0.14f;
     [SerializeField] float GroundedRadius = 0.28f;
 
+    [Space(10)]
     [SerializeField] float rotationSmoothTime = 0.5f;
     private float _rotationVelocity;
     private float _rotateY;
 
     private void Awake()
     {
+        quickRefer = transform.parent.GetComponent<QuickRefer>();
+        playerStatusEffect = transform.parent.Find("Status").GetComponent<PlayerStatusEffect>();
+    }
+
+    public void Initialize(int id)
+    {
+        this.id = id;
+
         playerObj = transform.parent.GetChild(0).gameObject;
         playerRb = playerObj.GetComponent<Rigidbody>();
         animator = playerObj.GetComponent<Animator>();
         playerAttack = playerObj.GetComponent<PlayerAttack>();
         playerAttacked = playerObj.GetComponent<PlayerAttacked>();
-        playerInput = GetComponent<PlayerInput>();
         playerInteract = playerObj.transform.Find("Interact").GetComponent<PlayerInteract>();
-        playerStatusEffect = transform.parent.Find("Status").GetComponent<PlayerStatusEffect>();
-    }
+        animationEvents = playerObj.GetComponent<AnimationEvents>();
 
-    private void Start()
-    {
         playerVelocity = new Vector3();
 
         initialInputAction();
+
+        quickRefer.Initialize();
+        playerAttack.Initialize();
+        playerAttacked.Initialize();
+        playerInteract.Initialize();
+        animationEvents.Initialize();
     }
 
     private void Update()
@@ -126,7 +140,6 @@ public class PlayerController : MonoBehaviour
 
     #region Input System
 
-    PlayerInput playerInput;
     //InputAction move, run, attack, block, interact;
 
     Vector2 _rawInputMovement;
@@ -135,12 +148,39 @@ public class PlayerController : MonoBehaviour
 
     void initialInputAction()
     {
-        foreach (var action in playerInput.actions.actionMaps[0].actions)  // Keyboard
+        if (id == 1)
         {
-            action.started += handleAction;
-            action.performed += handleAction;
-            action.canceled += handleAction;
+            RebindManager.Instance.playerL.map.Move.started += handleAction;
+            RebindManager.Instance.playerL.map.Move.performed += handleAction;
+            RebindManager.Instance.playerL.map.Move.canceled += handleAction;
+            RebindManager.Instance.playerL.map.Run.performed += handleAction;
+            RebindManager.Instance.playerL.map.Jump.canceled += handleAction;
+            RebindManager.Instance.playerL.map.Attack.started += handleAction;
+            RebindManager.Instance.playerL.map.Skill.started += handleAction;
+            RebindManager.Instance.playerL.map.Skill.performed += handleAction;
+            RebindManager.Instance.playerL.map.Skill.canceled += handleAction;
+            RebindManager.Instance.playerL.map.Interact.started += handleAction;
+
+            RebindManager.Instance.playerL.Enable();
         }
+        else if (id == 2)
+        {
+            RebindManager.Instance.playerR.map.Move.started += handleAction;
+            RebindManager.Instance.playerR.map.Move.performed += handleAction;
+            RebindManager.Instance.playerR.map.Move.canceled += handleAction;
+            RebindManager.Instance.playerR.map.Run.performed += handleAction;
+            RebindManager.Instance.playerR.map.Jump.canceled += handleAction;
+            RebindManager.Instance.playerR.map.Attack.started += handleAction;
+            RebindManager.Instance.playerR.map.Skill.started += handleAction;
+            RebindManager.Instance.playerR.map.Skill.performed += handleAction;
+            RebindManager.Instance.playerR.map.Skill.canceled += handleAction;
+            RebindManager.Instance.playerR.map.Interact.started += handleAction;
+
+            RebindManager.Instance.playerR.Enable();
+        }
+        else
+            Debug.LogError($"wrong player input initialization: id = {id}.");
+        
     }
 
     void handleAction(InputAction.CallbackContext context)
@@ -154,10 +194,10 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("IsWalking", context.performed);
                 break;
             case "Run":
-                _isRunning = context.performed;
+                _isRunning = true; // context.performed;
                 break;
             case "Jump":
-                if (Grounded && context.canceled)
+                if (Grounded) // && context.canceled)
                 {
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * gravity);
                     animator.SetTrigger("Jump");
@@ -167,17 +207,17 @@ public class PlayerController : MonoBehaviour
                 playerAttack.Attack(context);
                 break;
             case "Skill":
-                if (transform.parent.GetChild(0).name == "Knight")
+                if (transform.parent.GetChild(0).name.StartsWith("Knight"))
                     playerAttack.Block(context);
-                else if (transform.parent.GetChild(0).name == "Barbarian")
+                else if (transform.parent.GetChild(0).name.StartsWith("Barbarian"))
                     playerAttack.ThrowWeapon(context);
                 break;
-            case "Block":
-                playerAttack.Block(context);
-                break;
-            case "Throw":
-                playerAttack.ThrowWeapon(context);
-                break;
+            //case "Block":
+            //    playerAttack.Block(context);
+            //    break;
+            //case "Throw":
+            //    playerAttack.ThrowWeapon(context);
+            //    break;
             case "Interact":
                 playerInteract.Interact(context);
                 break;
@@ -190,14 +230,14 @@ public class PlayerController : MonoBehaviour
 
     public void Respawn()
     {
-        playerInput.enabled = true;
+        RebindManager.Instance.playerL.Enable();
         playerRb.velocity = Vector3.zero;
         playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
     public void Die(int damage)
     {
-        playerInput.enabled = false;
+        RebindManager.Instance.playerR.Disable();
         if (damage > 1)
             playerRb.constraints = RigidbodyConstraints.None;
     }

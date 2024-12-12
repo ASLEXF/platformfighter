@@ -14,11 +14,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance
     { get { return instance; } }
 
-    [SerializeField] InputActionAsset playerInput = null!, playerLInput = null!, playerRInput = null!;
-
-    [Space(10)]
     public List<string> characters = new List<string>();  // from UI
-    List<GameObject> characterPrefabs = new List<GameObject>();
+    [SerializeField] List<GameObject> characterPrefabs = new List<GameObject>();
+    [SerializeField] GameObject playerPrefab = null!;
     [SerializeField] List<GameObject> playerObjs = new List<GameObject>();
 
     Transform players = null!;
@@ -49,25 +47,34 @@ public class GameManager : MonoBehaviour
 
     void InitializePlayers()
     {
+        // prefab
         for (int i = 0; i < 2; i++)
         {
             characterPrefabs.Add(Resources.Load<GameObject>(characters[i]));
         }
 
+        playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
+
         Assert.IsTrue(characterPrefabs.Count == 2);
 
+        // gameobject
         for (int i = 0; i < 2; i++)
         {
-            GameObject playerObj = Instantiate(characterPrefabs[i], spawnPoints.GetChild(i).position, spawnPoints.GetChild(i).rotation);
+            GameObject playerObj = Instantiate(playerPrefab, spawnPoints.GetChild(i).position, spawnPoints.GetChild(i).rotation);
             playerObj.transform.SetParent(players);
+            //playerObj.transform.SetSiblingIndex(i);
             playerObj.GetComponentInChildren<PlayerRespawn>().SpawnPoint = spawnPoints.GetChild(i);
+
+            GameObject characterObj = Instantiate(characterPrefabs[i], playerObj.transform);
+            characterObj.transform.SetSiblingIndex(0);
+
             playerObjs.Add(playerObj);
 
             PlayerController playerController = playerObj.transform.Find("ControlPoint").GetComponent<PlayerController>();
-            playerController.id = i + 1;
+            playerController.Initialize(i + 1);
         }
 
-        playerObjs[0].GetComponentInChildren<PlayerInput>().actions = playerLInput;
-        playerObjs[1].GetComponentInChildren<PlayerInput>().actions = playerRInput;
+        //playerObjs[0].GetComponentInChildren<PlayerInput>().actions = playerLInput;
+        //playerObjs[1].GetComponentInChildren<PlayerInput>().actions = playerRInput;
     }
 }

@@ -11,7 +11,6 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class PlayerAttack : MonoBehaviour
 {
     Animator animator = null!;
-    GameObject playerObj = null!;
     PlayerAttacked playerAttacked = null!;
     HandLSlot handLSlot = null!;
     HandRSlot handRSlot = null!;
@@ -19,24 +18,26 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerObj = transform.parent.GetChild(0).gameObject;
         playerAttacked = GetComponent<PlayerAttacked>();
+    }
+
+    public void Initialize()
+    {
         handLSlot = transform.parent.GetComponent<QuickRefer>().handLSlot;
+        handLSlot.Initialize();
         handRSlot = transform.parent.GetComponent<QuickRefer>().handRSlot;
+        handRSlot.Initialize();
     }
 
     public void Attack(InputAction.CallbackContext context)
     {
         if (handRSlot.GetCurrentWeaponObj() == null) return;
 
-        if (context.started)
-        {
-            animator.SetTrigger("Attack");
+        animator.SetTrigger("Attack");
 
-            animator.SetBool("IsBlocking", false);
-            animator.ResetTrigger("BlockAttacked");
-            playerAttacked.isBlocking = false;
-        }
+        animator.SetBool("IsBlocking", false);
+        animator.ResetTrigger("BlockAttacked");
+        playerAttacked.isBlocking = false;
     }
 
     public void ThrowWeapon(InputAction.CallbackContext context)

@@ -7,7 +7,7 @@ public class QuickRefer : MonoBehaviour
     public HandLSlot handLSlot;
     public HandRSlot handRSlot;
 
-    private void Awake()
+    public void Initialize()
     {
         handLSlot = GetComponentInChildren<HandLSlot>();
         handRSlot = GetComponentInChildren<HandRSlot>();

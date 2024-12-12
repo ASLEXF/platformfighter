@@ -13,10 +13,14 @@ public class AnimationEvents : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        handLSlot = transform.parent.GetComponent<QuickRefer>().handLSlot;
-        handRSlot = transform.parent.GetComponent<QuickRefer>().handRSlot;
         playerAttack = GetComponent<PlayerAttack>();
         playerAttacked = GetComponent<PlayerAttacked>();
+    }
+
+    public void Initialize()
+    {
+        handLSlot = transform.parent.GetComponent<QuickRefer>().handLSlot;
+        handRSlot = transform.parent.GetComponent<QuickRefer>().handRSlot;
     }
 
     Coroutine attackingCoroutine;

@@ -23,14 +23,18 @@ public class PlayerAttacked : MonoBehaviour
     private void Awake()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
-        controller = transform.parent.GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+        VFX = transform.Find("VFX");
+        hit = VFX.GetChild(0).GetComponent<ParticleSystem>();
+    }
+
+    public void Initialize()
+    {
+        controller = transform.parent.GetComponent<PlayerController>();
         health = transform.parent.GetComponentInChildren<PlayerHealth>();
         statusEffect = transform.parent.GetComponentInChildren<PlayerStatusEffect>();
         handLSlot = transform.parent.GetComponent<QuickRefer>().handLSlot;
         audioSource = transform.parent.Find("Audio").GetComponents<AudioSource>();
-        VFX = transform.Find("VFX");
-        hit = VFX.GetChild(0).GetComponent<ParticleSystem>();
     }
 
     public void GetAttacked(int damage, float force, Collider collider, Vector3 point = new Vector3())
