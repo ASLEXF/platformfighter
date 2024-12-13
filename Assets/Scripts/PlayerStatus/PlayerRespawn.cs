@@ -14,6 +14,10 @@ public class PlayerRespawn : MonoBehaviour
     {
         controller = transform.parent.Find("ControlPoint").GetComponent<PlayerController>();
         playerHealth = GetComponent<PlayerHealth>();
+    }
+
+    public void Initialize()
+    {
         playerAttacked = transform.parent.GetChild(0).GetComponent<PlayerAttacked>();
     }
 

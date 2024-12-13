@@ -20,12 +20,13 @@ public class PlayerController : MonoBehaviour
 
     [Space(10)]
     [SerializeField] public int id;
-    public Vector3 playerVelocity;
+    public Vector3 playerVelocity = new Vector3();
     float _verticalVelocity;
 
     [Space(10)]
     [SerializeField] float walkSpeed = 3.0f;
     [SerializeField] float runSpeed = 8.0f;
+    [SerializeField] float inAirSpeed = 5.0f;
     [SerializeField] float deceleration = 0.6f;
     [SerializeField] float acceleration = 4f;
     [SerializeField] float currentSpeed;
@@ -67,8 +68,6 @@ public class PlayerController : MonoBehaviour
         playerInteract = playerObj.transform.Find("Interact").GetComponent<PlayerInteract>();
         animationEvents = playerObj.GetComponent<AnimationEvents>();
         healthBar = transform.parent.Find("HUD").GetComponentInChildren<HealthBar>();
-
-        playerVelocity = new Vector3();
 
         initialInputAction();
 
@@ -123,6 +122,8 @@ public class PlayerController : MonoBehaviour
 
         if (Grounded)
             playerRb.velocity = playerVelocity + move * currentSpeed + new Vector3(0.0f, _verticalVelocity, 0.0f);
+        else
+            playerRb.velocity = playerVelocity + move * inAirSpeed + new Vector3(0.0f, _verticalVelocity, 0.0f);
         //Debug.Log($"{playerRb.velocity}");
             //playerRb.AddForce(force);
             //playerRb.MovePosition(movePosition);
@@ -185,7 +186,7 @@ public class PlayerController : MonoBehaviour
             RebindManager.Instance.playerR.Enable();
         }
         else
-            Debug.LogError($"wrong player input initialization: id = {id}.");
+            Debug.LogError($"wrong player input initialization: id={id}.");
         
     }
 

@@ -35,6 +35,8 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currentHealth = maxHealth;
+
+        playerRespawn.Initialize();
     }
 
     public void TakeDamage(int damage = 1)
