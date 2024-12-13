@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerRespawn playerRespawn;
     PlayerStatusEffect playerStatusEffect;
 
-    [SerializeField] public int maxHealth = 3;
+    [SerializeField] public int maxHealth;
     [SerializeField] public int currentHealth;
 
     public bool isInvincible = false;
@@ -17,13 +17,23 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         playerController = transform.parent.Find("ControlPoint").GetComponent<PlayerController>();
-        playerAttacked = transform.parent.GetChild(0).GetComponent<PlayerAttacked>();
         playerRespawn = GetComponent<PlayerRespawn>();
         playerStatusEffect = GetComponent<PlayerStatusEffect>();
     }
 
-    private void Start()
+    public void Initialize()
     {
+        playerAttacked = transform.parent.GetChild(0).GetComponent<PlayerAttacked>();
+
+        if (transform.parent.GetChild(0).name.StartsWith("Knight"))
+        {
+            maxHealth = 3;
+        }
+        else if (transform.parent.GetChild(0).name.StartsWith("Barbarian"))
+        {
+            maxHealth = 4;
+        }
+
         currentHealth = maxHealth;
     }
 

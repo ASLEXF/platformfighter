@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     PlayerInteract playerInteract;
     PlayerStatusEffect playerStatusEffect;
     AnimationEvents animationEvents;
+    PlayerFollower playerFollower;
+    HealthBar healthBar;
 
     [Space(10)]
     [SerializeField] public int id;
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         quickRefer = transform.parent.GetComponent<QuickRefer>();
         playerStatusEffect = transform.parent.Find("Status").GetComponent<PlayerStatusEffect>();
+        playerFollower = transform.parent.Find("HUD").GetComponent<PlayerFollower>();
     }
 
     public void Initialize(int id)
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
         playerAttacked = playerObj.GetComponent<PlayerAttacked>();
         playerInteract = playerObj.transform.Find("Interact").GetComponent<PlayerInteract>();
         animationEvents = playerObj.GetComponent<AnimationEvents>();
+        healthBar = transform.parent.Find("HUD").GetComponentInChildren<HealthBar>();
 
         playerVelocity = new Vector3();
 
@@ -73,6 +77,8 @@ public class PlayerController : MonoBehaviour
         playerAttacked.Initialize();
         playerInteract.Initialize();
         animationEvents.Initialize();
+        playerFollower.Initialize();
+        healthBar.Initialize();
     }
 
     private void Update()
@@ -212,14 +218,11 @@ public class PlayerController : MonoBehaviour
                 else if (transform.parent.GetChild(0).name.StartsWith("Barbarian"))
                     playerAttack.ThrowWeapon(context);
                 break;
-            //case "Block":
-            //    playerAttack.Block(context);
-            //    break;
-            //case "Throw":
-            //    playerAttack.ThrowWeapon(context);
-            //    break;
             case "Interact":
                 playerInteract.Interact(context);
+                break;
+            default:
+                Debug.LogWarning($"undefined action {context.action.name}!");
                 break;
         }
     }

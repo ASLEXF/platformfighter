@@ -6,7 +6,7 @@ public class PlayerFollower : MonoBehaviour
 {
     Transform playerOBJTransform;
 
-    private void Awake()
+    public void Initialize()
     {
         playerOBJTransform = transform.parent.GetChild(0);
     }

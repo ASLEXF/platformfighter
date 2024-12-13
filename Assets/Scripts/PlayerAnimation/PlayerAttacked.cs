@@ -35,6 +35,8 @@ public class PlayerAttacked : MonoBehaviour
         statusEffect = transform.parent.GetComponentInChildren<PlayerStatusEffect>();
         handLSlot = transform.parent.GetComponent<QuickRefer>().handLSlot;
         audioSource = transform.parent.Find("Audio").GetComponents<AudioSource>();
+
+        health.Initialize();
     }
 
     public void GetAttacked(int damage, float force, Collider collider, Vector3 point = new Vector3())
