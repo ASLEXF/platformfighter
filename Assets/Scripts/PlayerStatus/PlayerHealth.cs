@@ -66,6 +66,11 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        GameEvents.Instance.PlayerDie(playerController.id);
+    }
+
     public void Respawn()
     {
         playerStatusEffect.lifeStatus = LifeStatusEnum.Alive;
@@ -74,7 +79,6 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator respawn(float seconds)
     {
-        GameEvents.Instance.PlayerDie(playerController.id);
         yield return new WaitForSeconds(seconds);
         playerRespawn.Respawn();
     }

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     [Space(10)]
     [SerializeField] public int id;
-    public Vector3 playerVelocity = new Vector3();
+    public Vector3 playerVelocity = new Vector3();  // for movement from outside
     float _verticalVelocity;
 
     [Space(10)]

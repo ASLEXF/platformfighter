@@ -7,9 +7,7 @@ using UnityEngine.UIElements;
 
 public class PlayerAttacked : MonoBehaviour
 {
-    CapsuleCollider capsuleCollider;
     PlayerController controller;
-    Rigidbody rb;
     Animator animator;
     PlayerHealth health;
     PlayerStatusEffect statusEffect;
@@ -22,7 +20,6 @@ public class PlayerAttacked : MonoBehaviour
 
     private void Awake()
     {
-        capsuleCollider = GetComponent<CapsuleCollider>();
         animator = GetComponent<Animator>();
         VFX = transform.Find("VFX");
         hit = VFX.GetChild(0).GetComponent<ParticleSystem>();

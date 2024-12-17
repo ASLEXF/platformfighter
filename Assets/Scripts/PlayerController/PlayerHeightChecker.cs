@@ -10,7 +10,7 @@ public class PlayerHeightChecker : MonoBehaviour
 
     private void Awake()
     {
-        playerHealth = GetComponent<PlayerHealth>();
+        playerHealth = transform.parent.GetComponentInChildren<PlayerHealth>();
         playerRespawn = transform.parent.GetComponentInChildren<PlayerRespawn>();
     }
 
@@ -18,6 +18,7 @@ public class PlayerHeightChecker : MonoBehaviour
     {
         if (transform.position.y < height)
         {
+            playerHealth.Die();
             playerRespawn.Respawn();
         }
     }

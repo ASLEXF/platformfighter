@@ -91,8 +91,8 @@
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerAttack.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\Scripts\PlayerController\QuickRefer.cs" />
+    <Compile Include="Assets\Scripts\Manager\Managers.cs" />
     <Compile Include="Assets\Scripts\Manager\IItemManager.cs" />
-    <Compile Include="Assets\Scripts\Manager\DontDestroy.cs" />
     <Compile Include="Assets\Scripts\Item\DropItem.cs" />
     <Compile Include="Assets\Scripts\Scene\Settings.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />

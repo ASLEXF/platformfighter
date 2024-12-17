@@ -91,6 +91,11 @@ public class SelectScene : MonoBehaviour
         CheckButtons();
     }
 
+    public void OnMainMenu()
+    {
+        SceneManager.LoadSceneAsync("MainMenu");
+    }
+
     public void OnStartGame()
     {
         GameManager.Instance.characters.Add(player1);
