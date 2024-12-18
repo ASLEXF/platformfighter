@@ -41,36 +41,35 @@ public class RebindManager : MonoBehaviour
 
     #region Player 1
 
-    public void RebindMoveLeftL() => RebindCompositeKey(playerL.map.Move, "left");
-    public void RebindMoveRightL() => RebindCompositeKey(playerL.map.Move, "right");
-    public void RebindMoveForwardL() => RebindCompositeKey(playerL.map.Move, "up");
-    public void RebindMoveBackL() => RebindCompositeKey(playerL.map.Move, "down");
-    public void RebindRunL() => RebindOneKey(playerL.map.Run);
-    public void RebindAttackL() => RebindOneKey(playerL.map.Attack);
-    public void RebindSkillL() => RebindOneKey(playerL.map.Skill);
-    public void RebindInteractL() => RebindOneKey(playerL.map.Interact);
-    public void RebindJumpL() => RebindOneKey(playerL.map.Jump);
+    public void RebindMoveForwardL(GameObject button) => RebindCompositeKey(button, playerL.map.Move, "up");
+    public void RebindMoveLeftL(GameObject button) => RebindCompositeKey(button, playerL.map.Move, "left");
+    public void RebindMoveBackL(GameObject button) => RebindCompositeKey(button, playerL.map.Move, "down");
+    public void RebindMoveRightL(GameObject button) => RebindCompositeKey(button, playerL.map.Move, "right");
+    public void RebindAttackL(GameObject button) => RebindOneKey(button, playerL.map.Attack);
+    public void RebindSkillL(GameObject button) => RebindOneKey(button, playerL.map.Skill);
+    public void RebindInteractL(GameObject button) => RebindOneKey(button, playerL.map.Interact);
+    public void RebindJumpL(GameObject button) => RebindOneKey(button, playerL.map.Jump);
+    public void RebindRunL(GameObject button) => RebindOneKey(button, playerL.map.Run);
 
     #endregion
 
     #region Player 2
 
-    public void RebindMoveLeftR() => RebindCompositeKey(playerR.map.Move, "left");
-    public void RebindMoveRightR() => RebindCompositeKey(playerR.map.Move, "right");
-    public void RebindMoveForwardR() => RebindCompositeKey(playerR.map.Move, "up");
-    public void RebindMoveBackR() => RebindCompositeKey(playerR.map.Move, "down");
-    public void RebindMoveRunR() => RebindOneKey(playerR.map.Run);
-    public void RebindRunR() => RebindOneKey(playerR.map.Run);
-    public void RebindAttackR() => RebindOneKey(playerR.map.Attack);
-    public void RebindSkillR() => RebindOneKey(playerR.map.Skill);
-    public void RebindInteractR() => RebindOneKey(playerR.map.Interact);
-    public void RebindJumpR() => RebindOneKey(playerR.map.Jump);
+    public void RebindMoveLeftR(GameObject button) => RebindCompositeKey(button, playerR.map.Move, "left");
+    public void RebindMoveRightR(GameObject button) => RebindCompositeKey(button, playerR.map.Move, "right");
+    public void RebindMoveForwardR(GameObject button) => RebindCompositeKey(button, playerR.map.Move, "up");
+    public void RebindMoveBackR(GameObject button) => RebindCompositeKey(button, playerR.map.Move, "down");
+    public void RebindMoveRunR(GameObject button) => RebindOneKey(button, playerR.map.Run);
+    public void RebindRunR(GameObject button) => RebindOneKey(button, playerR.map.Run);
+    public void RebindAttackR(GameObject button) => RebindOneKey(button, playerR.map.Attack);
+    public void RebindSkillR(GameObject button) => RebindOneKey(button, playerR.map.Skill);
+    public void RebindInteractR(GameObject button) => RebindOneKey(button, playerR.map.Interact);
+    public void RebindJumpR(GameObject button) => RebindOneKey(button, playerR.map.Jump);
 
     #endregion
 
-    private void RebindCompositeKey(InputAction inputAction, string name)
+    private void RebindCompositeKey(GameObject button, InputAction inputAction, string name)
     {
-        GameObject button = EventSystem.current.currentSelectedGameObject;
         TMP_Text text = button.transform.GetChild(1).GetComponent<TMP_Text>();
 
         arrowBox.transform.SetParent(button.transform);
@@ -114,9 +113,8 @@ public class RebindManager : MonoBehaviour
         }
     }
 
-    private void RebindOneKey(InputAction inputAction)
+    private void RebindOneKey(GameObject button, InputAction inputAction)
     {
-        GameObject button = EventSystem.current.currentSelectedGameObject;
         TMP_Text text = button.transform.GetChild(1).GetComponent<TMP_Text>();
 
         arrowBox.transform.SetParent(button.transform);

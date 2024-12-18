@@ -67,10 +67,12 @@
     <Compile Include="Assets\Scripts\PlayerAnimation\HandLSlot.cs" />
     <Compile Include="Assets\Scripts\Manager\ItemManager.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
+    <Compile Include="Assets\Scripts\Scene\Input\RebindButtonsL.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerRespawn.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Interfaces.cs" />
     <Compile Include="Assets\Scripts\Enums\PlayerStatusEnums.cs" />
     <Compile Include="Assets\Scripts\Weapon\IgnoreWeaponCollision.cs" />
+    <Compile Include="Assets\Scripts\Scene\Input\RebindButtonsR.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerStatusEffect.cs" />
     <Compile Include="Assets\Scripts\Manager\RebindManager.cs" />
     <Compile Include="Assets\Scripts\Weapon\Axe1H.cs" />
