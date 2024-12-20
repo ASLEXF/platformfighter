@@ -551,7 +551,7 @@ AudioSource:
   m_GameObject: {fileID: 7582159031557916735}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4051782145610218811, guid: c423df22509ec5f4ea20778a98b7a0ac, type: 2}
   m_audioClip: {fileID: 8300000, guid: 71db57fcb7b73cf41a30fdc00b12c9ae, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -647,7 +647,7 @@ AudioSource:
   m_GameObject: {fileID: 7582159031557916735}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6306382764699035619, guid: c423df22509ec5f4ea20778a98b7a0ac, type: 2}
   m_audioClip: {fileID: 8300000, guid: 771058153863a36409e3068d595ef194, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -933,6 +933,7 @@ MonoBehaviour:
   playerVelocity: {x: 0, y: 0, z: 0}
   walkSpeed: 3
   runSpeed: 8
+  inAirSpeed: 5
   deceleration: 0.6
   acceleration: 4
   currentSpeed: 0

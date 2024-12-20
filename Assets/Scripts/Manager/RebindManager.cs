@@ -18,8 +18,8 @@ public class RebindManager : MonoBehaviour
 
     public PlayerL playerL;
     public PlayerR playerR;
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private GameObject arrowBox;
+    public CanvasGroup canvasGroup;
+    public GameObject arrowBox;
 
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
@@ -30,13 +30,6 @@ public class RebindManager : MonoBehaviour
 
         playerL = new PlayerL();
         playerR = new PlayerR();
-    }
-
-    public void Initialize()
-    {
-        canvasGroup = GameObject.Find("Canvas").GetComponent<CanvasGroup>();
-        arrowBox = GameObject.Find("ArrowBox").gameObject;
-        arrowBox.SetActive(false);
     }
 
     #region Player 1

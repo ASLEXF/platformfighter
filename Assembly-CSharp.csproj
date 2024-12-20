@@ -60,31 +60,36 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.46f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Scene\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Manager\TrapManager.cs" />
     <Compile Include="Assets\Input\PlayerR.cs" />
     <Compile Include="Assets\Scripts\UI\LevelButton.cs" />
     <Compile Include="Assets\Scripts\Weapon\Sword1H.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\GraphicSettings.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandLSlot.cs" />
     <Compile Include="Assets\Scripts\Manager\ItemManager.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
-    <Compile Include="Assets\Scripts\Scene\Input\RebindButtonsL.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerRespawn.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Interfaces.cs" />
     <Compile Include="Assets\Scripts\Enums\PlayerStatusEnums.cs" />
     <Compile Include="Assets\Scripts\Weapon\IgnoreWeaponCollision.cs" />
-    <Compile Include="Assets\Scripts\Scene\Input\RebindButtonsR.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\Input\RebindButtonsR.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerStatusEffect.cs" />
+    <Compile Include="Assets\Scripts\Scene\Level1\Level1KeyHandler.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\Settings.cs" />
     <Compile Include="Assets\Scripts\Manager\RebindManager.cs" />
     <Compile Include="Assets\Scripts\Weapon\Axe1H.cs" />
+    <Compile Include="Assets\Scripts\Manager\GraphicManager.cs" />
     <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Traps\IceTrap.cs" />
-    <Compile Include="Assets\Scripts\Scene\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Camera\MultiPlayerVCam.cs" />
+    <Compile Include="Assets\Scripts\Scene\Level1\Level1.cs" />
     <Compile Include="Assets\Scripts\HUD\Orientation.cs" />
     <Compile Include="Assets\Scripts\UI\UICanvasGroup.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\Scripts\Weapon\Sword2H.cs" />
     <Compile Include="Assets\Scripts\Item\ItemHeightChecker.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\AudioSettings.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandRSlot.cs" />
     <Compile Include="Assets\Scripts\PlayerInteract\PlayerInteract.cs" />
     <Compile Include="Assets\Scripts\PlayerController\PlayerHeightChecker.cs" />
@@ -96,12 +101,10 @@
     <Compile Include="Assets\Scripts\Manager\Managers.cs" />
     <Compile Include="Assets\Scripts\Manager\IItemManager.cs" />
     <Compile Include="Assets\Scripts\Item\DropItem.cs" />
-    <Compile Include="Assets\Scripts\Scene\Settings.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
+    <Compile Include="Assets\Scripts\Scene\Select\Select.cs" />
     <Compile Include="Assets\Scripts\Debug\TimeControl.cs" />
-    <Compile Include="Assets\Scripts\Scene\Level1.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerAttacked.cs" />
-    <Compile Include="Assets\Scripts\Scene\Select.cs" />
     <Compile Include="Assets\Scripts\Platform\Spinning.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
     <Compile Include="Assets\Scripts\PlayerController\IgnoreCollision.cs" />
@@ -112,6 +115,7 @@
     <Compile Include="Assets\Scripts\Traps\FireTrap.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Traps\ITrap.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\Input\RebindButtonsL.cs" />
     <Compile Include="Assets\Scripts\Item\Shield.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerButton.cs" />
     <Compile Include="Assets\Scripts\Enums\ItemTypeEnums.cs" />
@@ -120,11 +124,13 @@
     <Compile Include="Assets\Scripts\PlayerController\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\Manager\GameEvents.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\InputSettings.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerFollower.cs" />
     <Compile Include="Assets\Scripts\Platform\ConveyerBelt.cs" />
     <Compile Include="Assets\Scripts\Debug\TestPlayerController.cs" />
     <Compile Include="Assets\Scripts\Weapon\Axe2H.cs" />
     <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\SettingsPageKeyHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

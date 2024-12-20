@@ -52,6 +52,7 @@ public class PlayerHealth : MonoBehaviour
         {
             playerStatusEffect.lifeStatus = LifeStatusEnum.Dead;
             currentHealth = 0;
+            Die();
             if (playerController == null)
             {
                 TestPlayerController controller = transform.parent.Find("Control Point").GetComponent<TestPlayerController>();
