@@ -107,6 +107,6 @@ public class SelectScene : MonoBehaviour
 
     private void AsyncLoad_completed(AsyncOperation obj)
     {
-        GameManager.Instance.Initialize();
+        GameManager.Instance.InitializeLevel();
     }
 }

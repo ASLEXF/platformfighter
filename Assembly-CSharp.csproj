@@ -75,7 +75,6 @@
     <Compile Include="Assets\Scripts\Weapon\IgnoreWeaponCollision.cs" />
     <Compile Include="Assets\Scripts\Scene\Settings\Input\RebindButtonsR.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus\PlayerStatusEffect.cs" />
-    <Compile Include="Assets\Scripts\Scene\Level1\Level1KeyHandler.cs" />
     <Compile Include="Assets\Scripts\Scene\Settings\Settings.cs" />
     <Compile Include="Assets\Scripts\Manager\RebindManager.cs" />
     <Compile Include="Assets\Scripts\Weapon\Axe1H.cs" />
@@ -86,6 +85,7 @@
     <Compile Include="Assets\Scripts\Scene\Level1\Level1.cs" />
     <Compile Include="Assets\Scripts\HUD\Orientation.cs" />
     <Compile Include="Assets\Scripts\UI\UICanvasGroup.cs" />
+    <Compile Include="Assets\Scripts\Enums\UIEnums.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\Scripts\Weapon\Sword2H.cs" />
     <Compile Include="Assets\Scripts\Item\ItemHeightChecker.cs" />
@@ -107,6 +107,7 @@
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerAttacked.cs" />
     <Compile Include="Assets\Scripts\Platform\Spinning.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\QuickSettings.cs" />
     <Compile Include="Assets\Scripts\PlayerController\IgnoreCollision.cs" />
     <Compile Include="Assets\Input\Player.cs" />
     <Compile Include="Assets\Scripts\Manager\AudioManager.cs" />

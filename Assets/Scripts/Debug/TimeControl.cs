@@ -13,12 +13,12 @@ public class TimeControl : MonoBehaviour
     void Update()
     {
         // 检测 Q 键是否被按下
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             // 将时间缩放到慢速状态
             Time.timeScale = slowMotionFactor;
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.Q))
         {
             // 恢复到原始时间缩放
             Time.timeScale = originalTimeScale;

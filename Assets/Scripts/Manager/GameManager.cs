@@ -1,11 +1,10 @@
-# nullable enable
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,10 +13,14 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance
     { get { return instance; } }
 
+    [Header("Players")]
     public List<string> characters = new List<string>();  // from UI
     [SerializeField] List<GameObject> characterPrefabs = new List<GameObject>();
-    [SerializeField] GameObject playerPrefab = null!;
+    [SerializeField] GameObject playerPrefab = null;
     [SerializeField] List<GameObject> playerObjs = new List<GameObject>();
+
+    [Header("UI")]
+    public UIEnum UIEnum = UIEnum.Normal;
 
     Transform players = null!;
     Transform spawnPoints = null!;  // 5
@@ -28,7 +31,19 @@ public class GameManager : MonoBehaviour
             instance = this;
     }
 
-    public void Initialize()
+    private void Start()
+    {
+        GameEvents.Instance.OnLevelExit += ClearAll;
+    }
+
+    public void ClearAll()
+    {
+        characters.Clear();
+        characterPrefabs.Clear();
+        playerObjs.Clear();
+    }
+
+    public void InitializeLevel()
     {
         Scene scene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
         GameObject[] rootObjects = scene.GetRootGameObjects();

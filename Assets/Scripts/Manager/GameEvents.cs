@@ -15,12 +15,24 @@ public class GameEvents : MonoBehaviour
         instance = this;
     }
 
-    #region
+    //#region
 
-    public event Action OnRebindSucceed;
-    public void RebindSucceed() => OnRebindSucceed?.Invoke();
+    //public event Action OnRebindSucceed;
+    //public void RebindSucceed() => OnRebindSucceed?.Invoke();
+
+    //#endregion
+
+    #region Game Control
+
+    public event Action OnLevelExit;
+
+    public void LevelExit() => OnLevelExit?.Invoke();
 
     #endregion
+
+    /*
+     * In Level
+     */
 
     #region Item
 
@@ -44,6 +56,14 @@ public class GameEvents : MonoBehaviour
         }
         Debug.Log($"Player {id} die!");
     }
+
+    #endregion
+
+    #region UI
+
+    public event Action OnQuickSettingsReturned;
+
+    public void QuickSettingsReturned() => OnQuickSettingsReturned?.Invoke();
 
     #endregion
 }
