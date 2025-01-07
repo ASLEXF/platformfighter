@@ -89,6 +89,7 @@
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\Scripts\Weapon\Sword2H.cs" />
     <Compile Include="Assets\Scripts\Item\ItemHeightChecker.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\IGraphicSettings.cs" />
     <Compile Include="Assets\Scripts\Scene\Settings\AudioSettings.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\HandRSlot.cs" />
     <Compile Include="Assets\Scripts\PlayerInteract\PlayerInteract.cs" />

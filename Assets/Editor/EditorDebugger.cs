@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,23 +8,36 @@ public class EditorDebugger : Editor
     {
         DrawDefaultInspector();
 
-        ITrap script = target as ITrap;
+        ITrap trap = target as ITrap;
         IItemManager itemManager = target as IItemManager;
+        IGraphicSettings graphicSettings = target as IGraphicSettings;
 
-        if (script != null)
+        while (true)
         {
-            if (GUILayout.Button("Activate"))
+            if (trap != null)
             {
-                script.Activate();
+                if (GUILayout.Button("Activate"))
+                {
+                    trap.Activate();
+                    break;
+                }
             }
-        }
 
-        if (itemManager != null)
-        {
-            if (GUILayout.Button("Generate"))
+            if (itemManager != null)
             {
-                itemManager.Generate();
+                if (GUILayout.Button("Generate"))
+                {
+                    itemManager.Generate();
+                    break;
+                }
             }
+
+            if (graphicSettings != null)
+            {
+                
+            }
+
+            break;
         }
     }
 }

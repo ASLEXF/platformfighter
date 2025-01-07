@@ -1,16 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GraphicManager : MonoBehaviour
+
+public class ResolutionExample: MonoBehaviour
+{
+    public Resolution resolution = new Resolution();
+}
+
+public class GraphicManager : ResolutionExample
 {
     private static GraphicManager instance;
 
     public static GraphicManager Instance
     { get { return instance; } }
+
+    [Header("Current")]
+    //[SerializeField] Resolution resolution;
+    [SerializeField] bool isFullScreen = false;
+
+    [Header("New")]
+    Resolution newResolution;
+    [SerializeField] bool newIsFullScreen;
 
     private void Awake()
     {
@@ -21,30 +36,61 @@ public class GraphicManager : MonoBehaviour
     private void Start()
     {
         // load saved settings
+
+        // no saving
+        resolution = FindClosestResolution(Screen.currentResolution, Screen.resolutions);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode, resolution.refreshRateRatio);
     }
 
-    public void Apply(bool isFullScreen, string resolution)
+    private void Update()
     {
-        Screen.fullScreen = isFullScreen;
-
-        switch (resolution)
-        {
-            case "1280¡Á720":
-                Screen.SetResolution(1280, 720, Screen.fullScreen);
-                break;
-            case "1920¡Á1080":
-                Screen.SetResolution(1920, 1080, Screen.fullScreen);
-                break;
-            case "2560¡Á1600":
-                Screen.SetResolution(2560, 1600, Screen.fullScreen);
-                break;
-            case "3840¡Á2160":
-                Screen.SetResolution(3840, 2160, Screen.fullScreen);
-                break;
-            default:
-                Screen.SetResolution(1920, 1080, Screen.fullScreen);
-                Debug.LogWarning($"wrong resolution: {resolution}!");
-                break;
-        }
+        // auto adjust resolution
     }
+
+    private Resolution FindClosestResolution(Resolution current, Resolution[] supported)
+    {
+        Resolution bestMatch = supported[0];
+        int smallestDifference = int.MaxValue;
+
+        foreach (Resolution res in supported)
+        {
+            int resolutionDifference = Mathf.Abs(res.width - current.width) + Mathf.Abs(res.height - current.height);
+
+            int refreshRateDifference = Mathf.Abs(res.refreshRate - current.refreshRate);
+
+            int totalDifference = resolutionDifference + refreshRateDifference;  // roughly
+
+            if (totalDifference < smallestDifference)
+            {
+                smallestDifference = totalDifference;
+                bestMatch = res;
+            }
+        }
+
+        return bestMatch;
+    }
+
+    public void Apply(bool isFullScreen, Resolution res)
+    {
+        newResolution = res;
+        newIsFullScreen = isFullScreen;
+
+        Screen.fullScreenMode = isFullScreen ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
+
+        Screen.SetResolution(res.width, res.height, Screen.fullScreenMode, res.refreshRateRatio);
+    }
+
+    public void Confirm()
+    {
+        resolution = newResolution;
+        isFullScreen = newIsFullScreen;
+    }
+
+    public void Revert()
+    {
+        Screen.fullScreenMode = isFullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode, resolution.refreshRateRatio);
+    }
+
+    public string GetResolution() => resolution.ToString();
 }
