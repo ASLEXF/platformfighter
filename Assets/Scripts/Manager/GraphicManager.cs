@@ -78,6 +78,8 @@ public class GraphicManager : ResolutionExample
         Screen.fullScreenMode = isFullScreen ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
 
         Screen.SetResolution(res.width, res.height, Screen.fullScreenMode, res.refreshRateRatio);
+
+        GameEvents.Instance.ApplyGraphicSettings();
     }
 
     public void Confirm()

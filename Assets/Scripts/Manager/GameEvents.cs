@@ -22,6 +22,14 @@ public class GameEvents : MonoBehaviour
 
     //#endregion
 
+    #region Modeled Window
+
+    public event Action OnApplyGraphicSettings;
+
+    public void ApplyGraphicSettings() => OnApplyGraphicSettings?.Invoke();
+
+    #endregion
+
     #region Game Control
 
     public event Action OnLevelExit;
@@ -31,7 +39,7 @@ public class GameEvents : MonoBehaviour
     #endregion
 
     /*
-     * In Level
+     * In Game Level
      */
 
     #region Item

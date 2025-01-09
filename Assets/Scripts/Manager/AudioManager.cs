@@ -13,9 +13,9 @@ public class AudioManager : MonoBehaviour
     { get { return instance; } }
 
     [SerializeField] AudioMixer audioMixer = null!;
-    [SerializeField][Range(0.0001f, 1)] float mainVolume = 1;
-    [SerializeField][Range(0.0001f, 1)] float VFXVolume = 1;
-    [SerializeField][Range(0.0001f, 1)] float BGMVolume = 1;
+    [SerializeField][Range(0.0001f, 1)] float mainVolume;
+    [SerializeField][Range(0.0001f, 1)] float VFXVolume;
+    [SerializeField][Range(0.0001f, 1)] float BGMVolume;
 
     private void Awake()
     {
@@ -28,29 +28,34 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         // load saved volume levels
-        float value;
+        mainVolume = PlayerPrefs.GetFloat("MainVolume", 1);
+        VFXVolume = PlayerPrefs.GetFloat("VFXVolume", 1);
+        BGMVolume = PlayerPrefs.GetFloat("BGMVolume", 1);
     }
 
     public void SetMainVolume(float volume)
     {
         mainVolume = (volume < 0.0001f ? 0.0001f : volume);
         audioMixer.SetFloat("MainVolume", Mathf.Log10(mainVolume) * 20);
+        PlayerPrefs.SetFloat("MainVolume", Mathf.Log10(mainVolume) * 20);
     }
     public void SetVFXVolume(float volume)
     {
         VFXVolume = (volume < 0.0001f ? 0.0001f : volume);
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(VFXVolume) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", Mathf.Log10(VFXVolume) * 20);
     }
     public void SetBGMVolume(float volume)
     {
         BGMVolume = (volume < 0.0001f ? 0.0001f : volume);
         audioMixer.SetFloat("BGMVolume", Mathf.Log10(BGMVolume) * 20);
+        PlayerPrefs.SetFloat("BGMVolume", Mathf.Log10(BGMVolume) * 20);
     }
 
     private void OnValidate()
     {
-        audioMixer.SetFloat("MainVolume", Mathf.Log10(mainVolume) * 20);
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(VFXVolume) * 20);
-        audioMixer.SetFloat("BGMVolume", Mathf.Log10(BGMVolume) * 20);
+        SetMainVolume(mainVolume);
+        SetVFXVolume(VFXVolume);
+        SetBGMVolume(BGMVolume);
     }
 }

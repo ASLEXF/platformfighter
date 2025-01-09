@@ -9,11 +9,8 @@ public class GraphicSettings : MonoBehaviour
     TMP_Dropdown resolutionDropDown;
     Toggle windowed, fullScreen;
     Button apply;
-    GameObject confirmWindow;
 
     Resolution[] resolutions;
-
-    [SerializeField] int countdown = 7;
 
     private void Awake()
     {
@@ -21,7 +18,6 @@ public class GraphicSettings : MonoBehaviour
         windowed = transform.GetChild(1).GetChild(0).GetComponent<Toggle>();
         fullScreen = transform.GetChild(1).GetChild(1).GetComponent<Toggle>();
         apply = transform.GetChild(2).GetComponent<Button>();
-        confirmWindow = transform.GetChild(3).gameObject;
     }
 
     private void Start()
@@ -29,11 +25,6 @@ public class GraphicSettings : MonoBehaviour
         initializeResolutionDropdown();
 
         apply.onClick.AddListener(() => GraphicManager.Instance.Apply(fullScreen.isOn, resolutions[resolutionDropDown.value]));
-        apply.onClick.AddListener(() =>
-            {
-                StartCoroutine(ConfirmWindow());
-            }
-        );
     }
 
     private void initializeResolutionDropdown()
@@ -52,25 +43,4 @@ public class GraphicSettings : MonoBehaviour
 
     public void OnSetWindowedIsOn() => fullScreen.isOn = !windowed.isOn;
     public void OnSetFullScreenIsOn() => windowed.isOn = !fullScreen.isOn;
-
-    IEnumerator ConfirmWindow()
-    {
-        TMP_Text text = confirmWindow.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>();
-
-        // countdown
-        int current = countdown;
-
-        while (current >= 0)
-        {
-            text.text = $"All changes will be reverted in {current} seconds.";
-            yield return new WaitForSecondsRealtime(1);
-            current--;
-        }
-
-        confirmWindow.SetActive(false);
-        Revert();
-    }
-
-    public void Confirm() => GraphicManager.Instance.Confirm();
-    public void Revert() => GraphicManager.Instance.Revert();
 }

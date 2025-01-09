@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Item\DropItem.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\Scripts\Scene\Select\Select.cs" />
+    <Compile Include="Assets\Scripts\Scene\Settings\SettingsWindows.cs" />
     <Compile Include="Assets\Scripts\Debug\TimeControl.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation\PlayerAttacked.cs" />
     <Compile Include="Assets\Scripts\Platform\Spinning.cs" />

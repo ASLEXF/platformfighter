@@ -9,7 +9,7 @@ public class InputSettings : MonoBehaviour
 
     private void Awake()
     {
-        canvasGroup = GameObject.Find("Canvas").GetComponent<CanvasGroup>();
+        canvasGroup = GameObject.Find("Settings Canvas").GetComponent<CanvasGroup>();
         arrowBox = GameObject.Find("ArrowBox").gameObject;
     }
 
