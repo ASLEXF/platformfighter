@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class ResolutionExample: MonoBehaviour
     public Resolution resolution = new Resolution();
 }
 
-public class GraphicManager : ResolutionExample
+public class GraphicManager : MonoBehaviour
 {
     private static GraphicManager instance;
 
@@ -20,7 +21,9 @@ public class GraphicManager : ResolutionExample
     { get { return instance; } }
 
     [Header("Current")]
-    //[SerializeField] Resolution resolution;
+    [SerializeField] public int width;
+    [SerializeField] public int height;
+    [SerializeField] public RefreshRate refreshRate;
     [SerializeField] bool isFullScreen = false;
 
     [Header("New")]
@@ -36,15 +39,16 @@ public class GraphicManager : ResolutionExample
     private void Start()
     {
         // load saved settings
-
-        // no saving
-        resolution = FindClosestResolution(Screen.currentResolution, Screen.resolutions);
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode, resolution.refreshRateRatio);
+        width = Screen.width;
+        height = Screen.height;
+        refreshRate = Screen.currentResolution.refreshRateRatio;
     }
 
     private void Update()
     {
         // auto adjust resolution
+        //resolution = FindClosestResolution(Screen.currentResolution, Screen.resolutions);
+        //Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode, resolution.refreshRateRatio);
     }
 
     private Resolution FindClosestResolution(Resolution current, Resolution[] supported)
@@ -75,24 +79,27 @@ public class GraphicManager : ResolutionExample
         newResolution = res;
         newIsFullScreen = isFullScreen;
 
-        Screen.fullScreenMode = isFullScreen ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
-
-        Screen.SetResolution(res.width, res.height, Screen.fullScreenMode, res.refreshRateRatio);
+        if (isFullScreen)
+            Screen.SetResolution(res.width, res.height, FullScreenMode.MaximizedWindow, res.refreshRateRatio);
+        else
+            Screen.SetResolution(res.width, res.height, FullScreenMode.Windowed, res.refreshRateRatio);
 
         GameEvents.Instance.ApplyGraphicSettings();
     }
 
     public void Confirm()
     {
-        resolution = newResolution;
+        width = newResolution.width;
+        height = newResolution.height;
+        refreshRate = newResolution.refreshRateRatio;
         isFullScreen = newIsFullScreen;
     }
 
     public void Revert()
     {
-        Screen.fullScreenMode = isFullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode, resolution.refreshRateRatio);
+        if (isFullScreen)
+            Screen.SetResolution(width, height, FullScreenMode.MaximizedWindow, refreshRate);
+        else
+            Screen.SetResolution(width, height, FullScreenMode.Windowed, refreshRate);
     }
-
-    public string GetResolution() => resolution.ToString();
 }

@@ -136,6 +136,7 @@ public class RebindManager : MonoBehaviour
     private void RebindComplete(TMP_Text text, GameObject button)
     {
         string newBindingPath = rebindingOperation.selectedControl.path;
+
         Debug.Log($"Path: {rebindingOperation.selectedControl.path}");
 
         string keyName = InputControlPath.ToHumanReadableString(newBindingPath, InputControlPath.HumanReadableStringOptions.OmitDevice);

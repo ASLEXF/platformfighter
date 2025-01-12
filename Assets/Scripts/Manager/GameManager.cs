@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+#if !DEVELOPMENT_BUILD
+        Application.logMessageReceived += (condition, stackTrace, type) => { };
+#endif
         GameEvents.Instance.OnLevelExit += ClearAll;
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,6 +40,17 @@ public class GraphicSettings : MonoBehaviour
         }
 
         resolutionDropDown.options = options.ConvertAll(options => new TMP_Dropdown.OptionData(options));
+
+        // find value
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            if (
+                resolutions[i].width == GraphicManager.Instance.width
+                && resolutions[i].height == GraphicManager.Instance.height
+                && resolutions[i].refreshRateRatio.Equals(GraphicManager.Instance.refreshRate)
+                )
+                resolutionDropDown.value = i;
+        }
     }
 
     public void OnSetWindowedIsOn() => fullScreen.isOn = !windowed.isOn;
